@@ -1,0 +1,14 @@
+# Contesto di coltivazione: dati personali usati solo per tarare le ricerche
+*.local.md
+
+# Issue locali di lavoro
+.scratch/
+
+node_modules/
+dist/
+.astro/
+test-results/
+playwright-report/
+.env
+.DS_Store
+Thumbs.db
