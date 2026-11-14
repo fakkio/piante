@@ -10,7 +10,7 @@ test("opening a plant from the list shows its card, and Back returns to the list
 }) => {
   await openCard(page, "Monstera");
   await expect(page.getByRole("heading", {level: 1})).toHaveText("Monstera");
-  await expect(page).toHaveURL(/\/schede\/monstera-deliciosa\/$/);
+  await expect(page).toHaveURL(/\/cards\/monstera-deliciosa\/$/);
 
   await page.goBack();
   await expect(page.getByRole("list", {name: "Piante"})).toBeVisible();
