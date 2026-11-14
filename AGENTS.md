@@ -32,6 +32,10 @@ Etichette di default: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-fo
 
 Single-context: un `GLOSSARY.md` e `docs/adr/` alla radice. See `docs/agents/domain.md`.
 
+### Ricerche
+
+Le Fonti vanno lette davvero; alcune richiedono un browser vero. See `docs/agents/research.md`.
+
 ### Branching (solo `main`)
 
 Si committa su `main`, ogni push pubblica; rami `feature/<slug>` solo per modifiche grosse alla pagina. Niente gitflow, release o changelog. See `docs/agents/branching.md`.
