@@ -17,10 +17,30 @@ if (plants.length === 0) {
 <Layout>
   <h1>Le mie piante</h1>
 
+  <form class="search" role="search" onsubmit="return false">
+    <label class="search__label" for="plant-search">Cerca</label>
+    <input
+      id="plant-search"
+      class="search__input"
+      type="search"
+      placeholder="Nome comune, botanico o alias"
+      autocapitalize="off"
+      spellcheck="false"
+      enterkeyhint="search"
+    />
+  </form>
+
   <ul class="plant-list" role="list" aria-label="Piante">
     {
       plants.map((plant) => (
-        <li class:list={["plant", `plant--${plant.status}`]}>
+        <li
+          class:list={["plant", `plant--${plant.status}`]}
+          data-search-names={JSON.stringify([
+            plant.botanicalName,
+            ...plant.commonNames,
+            ...plant.aliases,
+          ])}
+        >
           <div class="plant__names">
             <h2>{plant.commonName}</h2>
             <p class="plant__botanical-name">
@@ -37,13 +57,85 @@ if (plants.length === 0) {
       ))
     }
   </ul>
+
+  <p class="no-results" id="no-results" role="status" hidden>
+    Nessuna pianta trovata: non è nello schedario.
+  </p>
 </Layout>
+
+<script>
+  // Lowercase and strip accents, so "Èdera" and "edera" match.
+  const normalize = (text: string) =>
+    text
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLowerCase()
+      .trim();
+
+  const input = document.querySelector<HTMLInputElement>("#plant-search")!;
+  const noResults = document.querySelector<HTMLElement>("#no-results")!;
+  const items = [
+    ...document.querySelectorAll<HTMLElement>("[data-search-names]"),
+  ].map((element) => ({
+    element,
+    names: (JSON.parse(element.dataset.searchNames!) as string[]).map(
+      normalize,
+    ),
+  }));
+
+  function applySearch() {
+    const query = normalize(input.value);
+    let visible = 0;
+    for (const {element, names} of items) {
+      const matches = names.some((name) => name.includes(query));
+      element.hidden = !matches;
+      if (matches) visible++;
+    }
+    noResults.hidden = visible > 0;
+  }
+
+  input.addEventListener("input", applySearch);
+  // Back navigation restores the field value: apply it again to the list.
+  window.addEventListener("pageshow", applySearch);
+  applySearch();
+</script>
 
 <style>
   h1 {
     font-size: 1.625rem;
     line-height: 1.2;
     margin-block-end: var(--space);
+  }
+
+  .search {
+    margin-block-end: var(--space);
+  }
+
+  .search__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .search__input {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.5rem 0.875rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    /* 16px or more: iOS does not zoom the page on focus. */
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  .no-results {
+    padding: var(--space);
+    color: var(--text-muted);
+    text-align: center;
   }
 
   .plant-list {

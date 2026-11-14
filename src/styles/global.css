@@ -93,3 +93,8 @@ main {
 main {
   padding-block: 0.5rem calc(var(--space) * 2);
 }
+
+/* Component display rules must not override the hidden attribute. */
+[hidden] {
+  display: none !important;
+}
