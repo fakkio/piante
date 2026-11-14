@@ -1,0 +1,127 @@
+---
+import {getCollection} from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const maiuscola = (testo: string) =>
+  testo.charAt(0).toUpperCase() + testo.slice(1);
+
+const piante = (await getCollection("schede"))
+  .map(({data}) => ({
+    ...data,
+    nomeComune: data.nomiComuni[0]!,
+    inProgramma: data.stato === "in programma",
+  }))
+  .sort((a, b) => a.nomeComune.localeCompare(b.nomeComune, "it"));
+
+// Uno schedario vuoto è una cartella delle Schede sbagliata: meglio una build
+// fallita che un sito pubblicato senza Piante.
+if (piante.length === 0) {
+  throw new Error("Nessuna Scheda trovata: controlla la cartella delle Schede.");
+}
+---
+
+<Layout>
+  <h1>Le mie piante</h1>
+
+  <ul class="elenco" role="list" aria-label="Piante">
+    {piante.map((pianta) => (
+      <li class:list={["pianta", {"pianta--in-programma": pianta.inProgramma}]}>
+        <div class="pianta__nomi">
+          <h2>{maiuscola(pianta.nomeComune)}</h2>
+          <p class="pianta__botanico">
+            <i lang="la">{pianta.nomeBotanico}</i>
+          </p>
+        </div>
+        <p class="pianta__etichette">
+          <span class="categoria">{maiuscola(pianta.categoria)}</span>
+          <span
+            class:list={[
+              "stato",
+              pianta.inProgramma ? "stato--in-programma" : "stato--coltivata",
+            ]}
+          >
+            {maiuscola(pianta.stato)}
+          </span>
+        </p>
+      </li>
+    ))}
+  </ul>
+</Layout>
+
+<style>
+  h1 {
+    font-size: 1.625rem;
+    line-height: 1.2;
+    margin-block-end: var(--spazio);
+  }
+
+  .elenco {
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .pianta {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.875rem var(--spazio);
+    background: var(--superficie);
+    border: 1px solid var(--bordo);
+    border-radius: var(--raggio);
+  }
+
+  /* Una Pianta in programma non c'è ancora: bordo tratteggiato. */
+  .pianta--in-programma {
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--testo-tenue);
+  }
+
+  .pianta__nomi {
+    min-width: 0;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .pianta__botanico {
+    color: var(--testo-tenue);
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+  }
+
+  .pianta__etichette {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .categoria {
+    color: var(--testo-tenue);
+  }
+
+  .categoria::after {
+    content: "·";
+    margin-inline-start: 0.5rem;
+  }
+
+  .stato {
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+
+  .stato--coltivata {
+    background: var(--coltivata-sfondo);
+    color: var(--coltivata-testo);
+  }
+
+  .stato--in-programma {
+    background: var(--programma-sfondo);
+    color: var(--programma-testo);
+  }
+</style>

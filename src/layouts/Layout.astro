@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+import {percorso} from "../percorsi";
+
+interface Props {
+  titolo?: string;
+}
+
+const {titolo} = Astro.props;
+const descrizione =
+  "Schedario di consultazione delle piante coltivate in casa, all'aperto e nell'orto.";
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titolo ? `${titolo} · Piante` : "Piante"}</title>
+    <meta name="description" content={descrizione} />
+    <meta name="theme-color" content="#2f6b3c" />
+    <link rel="manifest" href={percorso("manifest.webmanifest")} />
+    <link rel="icon" type="image/svg+xml" href={percorso("icona.svg")} />
+    <link rel="apple-touch-icon" href={percorso("apple-touch-icon.png")} />
+    <meta name="apple-mobile-web-app-title" content="Piante" />
+  </head>
+  <body>
+    <header class="testata">
+      <a class="testata__titolo" href={percorso()}>Piante</a>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

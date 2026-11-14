@@ -1,0 +1,27 @@
+{
+  "name": "piante",
+  "private": true,
+  "description": "Schedario di consultazione delle piante coltivate in casa, all'aperto e nell'orto.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:prova": "node scripts/build-prova.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "npm run build:prova && playwright test",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "astro": "^7.4.12"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3"
+  }
+}
