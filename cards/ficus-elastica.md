@@ -33,7 +33,7 @@ infos:
     value: 13
     note: "La fonte consiglia di evitare temperature sotto i 13 °C (55 °F); è una soglia di prudenza, non il limite di sopravvivenza, che le fonti consultate non riportano."
   humidity:
-    value: medium
+    value: high
     note: "Preferisce ambienti umidi ma tollera l'aria secca delle case."
   pruning:
     value: "In primavera, per ringiovanire"
@@ -54,4 +54,4 @@ sources:
 researchedOn: 2026-11-14
 ---
 
-Esemplare adulto, alto circa un metro e mezzo.
+Esemplare adulto, di buone dimensioni.

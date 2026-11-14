@@ -29,9 +29,10 @@ const cards = defineCollection({
     sources: z.array(sourceSchema).min(1).optional(),
     researchedOn: z.coerce.date().optional(),
   }).refine(
-    ({infos, sources, researchedOn}) =>
-      [infos, sources, researchedOn].every((v) => v === undefined) ||
-      [infos, sources, researchedOn].every((v) => v !== undefined),
+    ({infos, sources, researchedOn}) => {
+      const present = [infos, sources, researchedOn].filter((v) => v !== undefined);
+      return present.length === 0 || present.length === 3;
+    },
     "infos, sources and researchedOn go together",
   ),
 });

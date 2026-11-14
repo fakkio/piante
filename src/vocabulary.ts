@@ -22,3 +22,45 @@ const keys = <T extends object>(labels: T) =>
 
 export const CATEGORIES = keys(CATEGORY_LABELS);
 export const STATUSES = keys(STATUS_LABELS);
+
+export const LEVEL_LABELS = {
+  low: "Bassa",
+  medium: "Media",
+  high: "Alta",
+} as const;
+
+export const DIM_HOME_LABELS = {
+  yes: "Sì",
+  partly: "In parte",
+  no: "No",
+} as const;
+
+export const THEME_LABELS = {
+  soil: "Terreno e rinvaso",
+  water: "Acqua e concime",
+  climate: "Luce e temperatura",
+  care: "Cure",
+  problems: "Problemi",
+} as const;
+
+export const SOURCE_TYPE_LABELS = {
+  institutional: "Istituzionale",
+  fallback: "Di ripiego",
+} as const;
+
+export const MONTH_LABELS = [
+  "gennaio",
+  "febbraio",
+  "marzo",
+  "aprile",
+  "maggio",
+  "giugno",
+  "luglio",
+  "agosto",
+  "settembre",
+  "ottobre",
+  "novembre",
+  "dicembre",
+] as const;
+
+export type Theme = keyof typeof THEME_LABELS;

@@ -1,19 +1,18 @@
 ---
 import {getCollection, render} from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import {INFOS, INFO_KEYS, type InfoKey} from "../../infos";
+import {sitePath} from "../../paths";
 import {
+  CATEGORY_LABELS,
   DIM_HOME_LABELS,
-  INFOS,
-  INFO_KEYS,
   LEVEL_LABELS,
   MONTH_LABELS,
   SOURCE_TYPE_LABELS,
+  STATUS_LABELS,
   THEME_LABELS,
-  type InfoKey,
   type Theme,
-} from "../../infos";
-import {sitePath} from "../../paths";
-import {CATEGORY_LABELS, STATUS_LABELS} from "../../vocabulary";
+} from "../../vocabulary";
 
 export async function getStaticPaths() {
   return (await getCollection("cards")).map((entry) => ({
@@ -75,7 +74,7 @@ const dateFormat = new Intl.DateTimeFormat("it-IT", {dateStyle: "long", timeZone
             <article class="info" data-info={key}>
               <h3>{label}</h3>
               <p class="info__value">{value}</p>
-              {key === "repotting" && <p class="info__extra">Ogni: {item.frequency}</p>}
+              {key === "repotting" && <p class="info__extra">Frequenza: {item.frequency}</p>}
               {key === "light" && (
                 <p class="info__extra">
                   Regge una casa poco luminosa: {DIM_HOME_LABELS[item.dimHome as keyof typeof DIM_HOME_LABELS]}

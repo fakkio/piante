@@ -17,7 +17,7 @@ test("opening a plant from the list shows its card, and Back returns to the list
 });
 
 test("a card has a stable address of its own", async ({page}) => {
-  await page.goto("schede/citrus-limon/");
+  await page.goto("cards/citrus-limon/");
   await expect(page.getByRole("heading", {level: 1})).toHaveText("Limone");
 });
 

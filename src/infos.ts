@@ -2,43 +2,7 @@
 // shape of their value, and the theme they are shown under. Adding an info
 // means adding it here (see GLOSSARY.md).
 import {z} from "astro/zod";
-
-export const LEVEL_LABELS = {
-  low: "Bassa",
-  medium: "Media",
-  high: "Alta",
-} as const;
-
-export const DIM_HOME_LABELS = {
-  yes: "Sì",
-  partly: "In parte",
-  no: "No",
-} as const;
-
-export const THEME_LABELS = {
-  soil: "Terreno e rinvaso",
-  water: "Acqua e concime",
-  climate: "Luce e temperatura",
-  care: "Cure",
-  problems: "Problemi",
-} as const;
-
-export type Theme = keyof typeof THEME_LABELS;
-
-export const MONTH_LABELS = [
-  "gennaio",
-  "febbraio",
-  "marzo",
-  "aprile",
-  "maggio",
-  "giugno",
-  "luglio",
-  "agosto",
-  "settembre",
-  "ottobre",
-  "novembre",
-  "dicembre",
-] as const;
+import type {Theme} from "./vocabulary";
 
 const text = z.string().trim().min(1);
 const months = z
@@ -95,11 +59,6 @@ export const infosSchema = z.strictObject(
     [K in InfoKey]: (typeof INFOS)[K]["schema"];
   },
 );
-
-export const SOURCE_TYPE_LABELS = {
-  institutional: "Istituzionale",
-  fallback: "Di ripiego",
-} as const;
 
 export const sourceSchema = z.strictObject({
   title: text,
