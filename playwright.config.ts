@@ -3,8 +3,8 @@ import {defineConfig, devices} from "@playwright/test";
 const PORT = process.env.LOCAL_PORT ?? "4321";
 const BASE_PATH = "/piante";
 
-// `npm test` costruisce prima il sito sulle Schede di prova; il server serve
-// solo quello che la build ha prodotto, sotto il percorso base di GitHub Pages.
+// `npm test` first builds the site on the fixture cards; the server only
+// serves what that build produced, under the GitHub Pages base path.
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
@@ -12,13 +12,13 @@ export default defineConfig({
   retries: 0,
   reporter: [["list"]],
   use: {
-    // Il sito è pensato prima per il telefono: i test girano a quella larghezza.
+    // The site is designed phone first: tests run at that width.
     ...devices["Pixel 7"],
     baseURL: `http://localhost:${PORT}${BASE_PATH}/`,
   },
   webServer: {
     command: "node scripts/serve-dist.mjs",
-    env: {PORT, BASE_PATH, DIST_DIR: "dist-prova"},
+    env: {PORT, BASE_PATH, DIST_DIR: "dist-test"},
     url: `http://localhost:${PORT}${BASE_PATH}/`,
     reuseExistingServer: false,
   },

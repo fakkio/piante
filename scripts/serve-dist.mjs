@@ -1,11 +1,11 @@
-// Server statico per il sito costruito, per il webServer di Playwright. Serve
-// la cartella sotto il percorso base, come fa GitHub Pages: un link che lo
-// dimentica dà 404 anche nei test.
+// A static server for the built site, for Playwright's webServer. It serves
+// the folder under the base path, as GitHub Pages does: a link that forgets
+// the base path gets a 404 in tests too.
 import {createServer} from "node:http";
 import {readFile} from "node:fs/promises";
 import {extname, join, normalize, resolve} from "node:path";
 
-const root = resolve(process.env.DIST_DIR ?? "dist-prova");
+const root = resolve(process.env.DIST_DIR ?? "dist-test");
 const base = process.env.BASE_PATH ?? "/piante";
 const port = Number(process.env.PORT ?? 4321);
 
@@ -37,7 +37,7 @@ createServer(async (req, res) => {
         res.end(body);
         return;
       } catch {
-        // prova il candidato successivo
+        // try the next candidate
       }
     }
   }

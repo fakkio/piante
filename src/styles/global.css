@@ -1,35 +1,35 @@
 :root {
   color-scheme: light dark;
 
-  --sfondo: #f6f5ef;
-  --superficie: #ffffff;
-  --testo: #1d2a1f;
-  --testo-tenue: #556358;
-  --bordo: #dcdccf;
-  --accento: #2f6b3c;
+  --background: #f6f5ef;
+  --surface: #ffffff;
+  --text: #1d2a1f;
+  --text-muted: #556358;
+  --border: #dcdccf;
+  --accent: #2f6b3c;
 
-  --coltivata-sfondo: #dcefdf;
-  --coltivata-testo: #1f5a2c;
-  --programma-sfondo: #fbe9c6;
-  --programma-testo: #7a4a00;
+  --growing-background: #dcefdf;
+  --growing-text: #1f5a2c;
+  --planned-background: #fbe9c6;
+  --planned-text: #7a4a00;
 
-  --spazio: 1rem;
-  --raggio: 0.875rem;
+  --space: 1rem;
+  --radius: 0.875rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sfondo: #131a14;
-    --superficie: #1c261e;
-    --testo: #e8eee6;
-    --testo-tenue: #a3b3a6;
-    --bordo: #2f3d32;
-    --accento: #8fd19e;
+    --background: #131a14;
+    --surface: #1c261e;
+    --text: #e8eee6;
+    --text-muted: #a3b3a6;
+    --border: #2f3d32;
+    --accent: #8fd19e;
 
-    --coltivata-sfondo: #234a2c;
-    --coltivata-testo: #c4ecca;
-    --programma-sfondo: #4d3a12;
-    --programma-testo: #f6dca3;
+    --growing-background: #234a2c;
+    --growing-text: #c4ecca;
+    --planned-background: #4d3a12;
+    --planned-text: #f6dca3;
   }
 }
 
@@ -46,8 +46,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--sfondo);
-  color: var(--testo);
+  background: var(--background);
+  color: var(--text);
   font-family:
     system-ui,
     -apple-system,
@@ -70,20 +70,20 @@ ul {
   list-style: none;
 }
 
-.testata,
+.site-header,
 main {
   width: 100%;
   max-width: 40rem;
   margin-inline: auto;
-  padding-inline: var(--spazio);
+  padding-inline: var(--space);
 }
 
-.testata {
-  padding-block: var(--spazio) 0.25rem;
+.site-header {
+  padding-block: var(--space) 0.25rem;
 }
 
-.testata__titolo {
-  color: var(--accento);
+.site-header__title {
+  color: var(--accent);
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -91,5 +91,5 @@ main {
 }
 
 main {
-  padding-block: 0.5rem calc(var(--spazio) * 2);
+  padding-block: 0.5rem calc(var(--space) * 2);
 }

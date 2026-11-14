@@ -39,3 +39,21 @@ _Avoid_: Commento, appunto
 **Fonte**:
 Il riferimento da cui è stata ricavata un'Informazione, conservato nella Scheda.
 _Avoid_: Link, riferimento
+
+## Nomi nel codice
+
+Il codice è solo in inglese: ogni termine ha un nome inglese fisso, da usare in identificatori, file e frontmatter. I testi mostrati sul sito restano in italiano.
+
+| Termine                  | Nel codice          |
+| ------------------------ | ------------------- |
+| Contesto di coltivazione | `growing context`   |
+| Pianta                   | `plant`             |
+| Categoria                | `category`          |
+| Stato                    | `status`            |
+| Protezione invernale     | `winter protection` |
+| Scheda                   | `card`              |
+| Informazione             | `info`              |
+| Nota personale           | `personal note`     |
+| Fonte                    | `source`            |
+
+Valori di Categoria: ornamentale `ornamental`, agrume `citrus`, aromatica `herb`, ortaggio `vegetable`, bulbosa `bulb`. Valori di Stato: coltivata `growing`, in programma `planned`.

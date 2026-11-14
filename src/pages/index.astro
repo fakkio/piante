@@ -1,50 +1,41 @@
 ---
 import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import {CATEGORY_LABELS, STATUS_LABELS} from "../vocabulary";
 
-const maiuscola = (testo: string) =>
-  testo.charAt(0).toUpperCase() + testo.slice(1);
+const plants = (await getCollection("cards"))
+  .map(({data}) => ({...data, commonName: data.commonNames[0]!}))
+  .sort((a, b) => a.commonName.localeCompare(b.commonName, "it"));
 
-const piante = (await getCollection("schede"))
-  .map(({data}) => ({
-    ...data,
-    nomeComune: data.nomiComuni[0]!,
-    inProgramma: data.stato === "in programma",
-  }))
-  .sort((a, b) => a.nomeComune.localeCompare(b.nomeComune, "it"));
-
-// Uno schedario vuoto è una cartella delle Schede sbagliata: meglio una build
-// fallita che un sito pubblicato senza Piante.
-if (piante.length === 0) {
-  throw new Error("Nessuna Scheda trovata: controlla la cartella delle Schede.");
+// An empty card index means a wrong cards folder: better a failed build than
+// a published site with no plants.
+if (plants.length === 0) {
+  throw new Error("No cards found: check the cards folder.");
 }
 ---
 
 <Layout>
   <h1>Le mie piante</h1>
 
-  <ul class="elenco" role="list" aria-label="Piante">
-    {piante.map((pianta) => (
-      <li class:list={["pianta", {"pianta--in-programma": pianta.inProgramma}]}>
-        <div class="pianta__nomi">
-          <h2>{maiuscola(pianta.nomeComune)}</h2>
-          <p class="pianta__botanico">
-            <i lang="la">{pianta.nomeBotanico}</i>
+  <ul class="plant-list" role="list" aria-label="Piante">
+    {
+      plants.map((plant) => (
+        <li class:list={["plant", `plant--${plant.status}`]}>
+          <div class="plant__names">
+            <h2>{plant.commonName}</h2>
+            <p class="plant__botanical-name">
+              <i lang="la">{plant.botanicalName}</i>
+            </p>
+          </div>
+          <p class="plant__tags">
+            <span class="category">{CATEGORY_LABELS[plant.category]}</span>
+            <span class:list={["status", `status--${plant.status}`]}>
+              {STATUS_LABELS[plant.status]}
+            </span>
           </p>
-        </div>
-        <p class="pianta__etichette">
-          <span class="categoria">{maiuscola(pianta.categoria)}</span>
-          <span
-            class:list={[
-              "stato",
-              pianta.inProgramma ? "stato--in-programma" : "stato--coltivata",
-            ]}
-          >
-            {maiuscola(pianta.stato)}
-          </span>
-        </p>
-      </li>
-    ))}
+        </li>
+      ))
+    }
   </ul>
 </Layout>
 
@@ -52,31 +43,31 @@ if (piante.length === 0) {
   h1 {
     font-size: 1.625rem;
     line-height: 1.2;
-    margin-block-end: var(--spazio);
+    margin-block-end: var(--space);
   }
 
-  .elenco {
+  .plant-list {
     display: grid;
     gap: 0.625rem;
   }
 
-  .pianta {
+  .plant {
     display: grid;
     gap: 0.5rem;
-    padding: 0.875rem var(--spazio);
-    background: var(--superficie);
-    border: 1px solid var(--bordo);
-    border-radius: var(--raggio);
+    padding: 0.875rem var(--space);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
 
-  /* Una Pianta in programma non c'è ancora: bordo tratteggiato. */
-  .pianta--in-programma {
+  /* A planned plant is not there yet: dashed border. */
+  .plant--planned {
     background: transparent;
     border-style: dashed;
-    border-color: var(--testo-tenue);
+    border-color: var(--text-muted);
   }
 
-  .pianta__nomi {
+  .plant__names {
     min-width: 0;
   }
 
@@ -86,13 +77,13 @@ if (piante.length === 0) {
     overflow-wrap: anywhere;
   }
 
-  .pianta__botanico {
-    color: var(--testo-tenue);
+  .plant__botanical-name {
+    color: var(--text-muted);
     font-size: 0.9375rem;
     overflow-wrap: anywhere;
   }
 
-  .pianta__etichette {
+  .plant__tags {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -100,28 +91,28 @@ if (piante.length === 0) {
     font-size: 0.8125rem;
   }
 
-  .categoria {
-    color: var(--testo-tenue);
+  .category {
+    color: var(--text-muted);
   }
 
-  .categoria::after {
+  .category::after {
     content: "·";
     margin-inline-start: 0.5rem;
   }
 
-  .stato {
+  .status {
     padding: 0.125rem 0.5rem;
     border-radius: 999px;
     font-weight: 600;
   }
 
-  .stato--coltivata {
-    background: var(--coltivata-sfondo);
-    color: var(--coltivata-testo);
+  .status--growing {
+    background: var(--growing-background);
+    color: var(--growing-text);
   }
 
-  .stato--in-programma {
-    background: var(--programma-sfondo);
-    color: var(--programma-testo);
+  .status--planned {
+    background: var(--planned-background);
+    color: var(--planned-text);
   }
 </style>

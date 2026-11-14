@@ -1,4 +1,4 @@
-name: Pubblica
+name: Deploy
 
 on:
   push:
@@ -9,13 +9,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: pubblica
+  group: deploy
   cancel-in-progress: false
 
 jobs:
-  # Valida le Schede con la build, esegue i test sulle Schede di prova e solo
-  # se passano prepara il sito da pubblicare.
-  costruisci:
+  # Validates the cards through the build, runs the tests on the fixture
+  # cards, and only if they pass prepares the site to publish.
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -32,8 +32,8 @@ jobs:
         with:
           path: dist
 
-  pubblica:
-    needs: costruisci
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       pages: write

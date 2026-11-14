@@ -1,13 +1,13 @@
 ---
 import "../styles/global.css";
-import {percorso} from "../percorsi";
+import {sitePath} from "../paths";
 
 interface Props {
-  titolo?: string;
+  title?: string;
 }
 
-const {titolo} = Astro.props;
-const descrizione =
+const {title} = Astro.props;
+const description =
   "Schedario di consultazione delle piante coltivate in casa, all'aperto e nell'orto.";
 ---
 
@@ -16,17 +16,17 @@ const descrizione =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{titolo ? `${titolo} · Piante` : "Piante"}</title>
-    <meta name="description" content={descrizione} />
+    <title>{title ? `${title} · Piante` : "Piante"}</title>
+    <meta name="description" content={description} />
     <meta name="theme-color" content="#2f6b3c" />
-    <link rel="manifest" href={percorso("manifest.webmanifest")} />
-    <link rel="icon" type="image/svg+xml" href={percorso("icona.svg")} />
-    <link rel="apple-touch-icon" href={percorso("apple-touch-icon.png")} />
+    <link rel="manifest" href={sitePath("manifest.webmanifest")} />
+    <link rel="icon" type="image/svg+xml" href={sitePath("icon.svg")} />
+    <link rel="apple-touch-icon" href={sitePath("apple-touch-icon.png")} />
     <meta name="apple-mobile-web-app-title" content="Piante" />
   </head>
   <body>
-    <header class="testata">
-      <a class="testata__titolo" href={percorso()}>Piante</a>
+    <header class="site-header">
+      <a class="site-header__title" href={sitePath()}>Piante</a>
     </header>
     <main>
       <slot />

@@ -3,36 +3,24 @@ import {glob} from "astro/loaders";
 import {z} from "astro/zod";
 import {resolve} from "node:path";
 import {pathToFileURL} from "node:url";
+import {CATEGORIES, STATUSES} from "./vocabulary";
 
-const CATEGORIE = [
-  "ornamentale",
-  "agrume",
-  "aromatica",
-  "ortaggio",
-  "bulbosa",
-] as const;
+// The cards folder is configurable: tests build the site on fixture cards,
+// never on the real ones. Relative to the project root, or absolute.
+const cardsDir = pathToFileURL(resolve(process.env.CARDS_DIR ?? "./cards"));
 
-const STATI = ["coltivata", "in programma"] as const;
+const nonEmptyText = z.string().trim().min(1);
 
-// La cartella delle Schede è configurabile: i test costruiscono il sito sulle
-// Schede di prova, mai su quelle reali.
-// Relativa alla radice del progetto, oppure assoluta.
-const cartellaSchede = pathToFileURL(
-  resolve(process.env.SCHEDE_DIR ?? "./schede"),
-);
-
-const testo = z.string().trim().min(1);
-
-const schede = defineCollection({
-  loader: glob({pattern: "*.md", base: cartellaSchede}),
+const cards = defineCollection({
+  loader: glob({pattern: "*.md", base: cardsDir}),
   schema: z.strictObject({
-    nomeBotanico: testo,
-    // Il primo nome comune è quello mostrato nell'elenco.
-    nomiComuni: z.array(testo).min(1),
-    alias: z.array(testo).default([]),
-    categoria: z.enum(CATEGORIE),
-    stato: z.enum(STATI),
+    botanicalName: nonEmptyText,
+    // The first common name is the one shown in the list.
+    commonNames: z.array(nonEmptyText).min(1),
+    aliases: z.array(nonEmptyText).default([]),
+    category: z.enum(CATEGORIES),
+    status: z.enum(STATUSES),
   }),
 });
 
-export const collections = {schede};
+export const collections = {cards};

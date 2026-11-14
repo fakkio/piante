@@ -13,7 +13,9 @@ playwright-report/
 .DS_Store
 Thumbs.db
 
-dist-prova/
+dist-test/
 
 # Configurazione locale di Claude Code
 .claude/
+
+.idea/

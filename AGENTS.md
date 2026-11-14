@@ -2,7 +2,13 @@
 
 Piante: schedario di consultazione, in italiano e pensato prima per il telefono, delle piante coltivate dal proprietario in casa, all'aperto e nell'orto. Un file Markdown per Pianta (frontmatter con le Informazioni ricercate e le Fonti, corpo con la Nota personale), sito statico Astro pubblicato su GitHub Pages.
 
-Il vocabolario è in `GLOSSARY.md`: usalo nei nomi, nei testi e nelle issue.
+Il vocabolario è in `GLOSSARY.md`: usalo nei testi, nei documenti e nelle issue.
+
+### Lingua
+
+- **Codice: sempre e solo inglese.** Identificatori, commenti, nomi di file e cartelle, script, classi CSS, chiavi e valori fissi del frontmatter, titoli dei test, messaggi di commit. Per i termini del glossario usa i nomi inglesi fissati in `GLOSSARY.md` ("Nomi nel codice"), senza inventarne altri.
+- **Testi del sito e contenuto delle Schede: italiano.** Le etichette italiane dei valori fissi stanno in `src/vocabulary.ts`.
+- **Documenti e issue: italiano** (`GLOSSARY.md`, `AGENTS.md`, `docs/`, ADR).
 
 ### Contesto di coltivazione e privacy
 
