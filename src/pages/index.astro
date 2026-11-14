@@ -1,10 +1,11 @@
 ---
 import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import {sitePath} from "../paths";
 import {CATEGORY_LABELS, STATUS_LABELS} from "../vocabulary";
 
 const plants = (await getCollection("cards"))
-  .map(({data}) => ({...data, commonName: data.commonNames[0]!}))
+  .map(({id, data}) => ({...data, id, commonName: data.commonNames[0]!}))
   .sort((a, b) => a.commonName.localeCompare(b.commonName, "it"));
 
 // An empty card index means a wrong cards folder: better a failed build than
@@ -42,7 +43,7 @@ if (plants.length === 0) {
           ])}
         >
           <div class="plant__names">
-            <h2>{plant.commonName}</h2>
+            <h2><a class="plant__link" href={sitePath(`schede/${plant.id}/`)}>{plant.commonName}</a></h2>
             <p class="plant__botanical-name">
               <i lang="la">{plant.botanicalName}</i>
             </p>
@@ -144,6 +145,7 @@ if (plants.length === 0) {
   }
 
   .plant {
+    position: relative;
     display: grid;
     gap: 0.5rem;
     padding: 0.875rem var(--space);
@@ -157,6 +159,18 @@ if (plants.length === 0) {
     background: transparent;
     border-style: dashed;
     border-color: var(--text-muted);
+  }
+
+  /* The whole row is the tap target. */
+  .plant__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .plant__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 
   .plant__names {

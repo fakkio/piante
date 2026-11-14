@@ -1,0 +1,150 @@
+---
+import {getCollection, render} from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import {
+  DIM_HOME_LABELS,
+  INFOS,
+  INFO_KEYS,
+  LEVEL_LABELS,
+  MONTH_LABELS,
+  SOURCE_TYPE_LABELS,
+  THEME_LABELS,
+  type InfoKey,
+  type Theme,
+} from "../../infos";
+import {sitePath} from "../../paths";
+import {CATEGORY_LABELS, STATUS_LABELS} from "../../vocabulary";
+
+export async function getStaticPaths() {
+  return (await getCollection("cards")).map((entry) => ({
+    params: {id: entry.id},
+    props: {entry},
+  }));
+}
+
+const {entry} = Astro.props;
+const {data} = entry;
+const commonName = data.commonNames[0]!;
+const hasPersonalNote = (entry.body ?? "").trim().length > 0;
+const {Content} = hasPersonalNote ? await render(entry) : {Content: null};
+
+const formatValue = (key: InfoKey, value: any): string => {
+  if (key === "light" || key === "humidity") return LEVEL_LABELS[value as keyof typeof LEVEL_LABELS];
+  if (key === "repotting" || key === "fertilizing")
+    return (value as number[]).map((m) => MONTH_LABELS[m - 1]).join(", ");
+  if (key === "idealTemperature") return `${value.min}–${value.max} °C`;
+  if (key === "minTemperature") return `${value} °C`;
+  return String(value);
+};
+
+const infos = data.infos;
+const themes = (Object.keys(THEME_LABELS) as Theme[]).map((theme) => ({
+  theme,
+  entries: infos
+    ? INFO_KEYS.filter((key) => INFOS[key].theme === theme).map((key) => {
+        const item = infos[key] as any;
+        return {key, label: INFOS[key].label, value: formatValue(key, item.value), item};
+      })
+    : [],
+}));
+
+const dateFormat = new Intl.DateTimeFormat("it-IT", {dateStyle: "long", timeZone: "UTC"});
+---
+
+<Layout title={commonName}>
+  <p class="back"><a href={sitePath()}>← Tutte le piante</a></p>
+  <h1>{commonName}</h1>
+  <p class="botanical-name"><i lang="la">{data.botanicalName}</i></p>
+  <p class="tags">
+    <span>{CATEGORY_LABELS[data.category]}</span>
+    <span class:list={["status", `status--${data.status}`]}>{STATUS_LABELS[data.status]}</span>
+  </p>
+
+  {
+    !infos && (
+      <p class="pending">Scheda ancora da ricercare.</p>
+    )
+  }
+
+  {
+    infos &&
+      themes.map(({theme, entries}) => (
+        <section class="group" aria-labelledby={`group-${theme}`}>
+          <h2 id={`group-${theme}`}>{THEME_LABELS[theme]}</h2>
+          {entries.map(({key, label, value, item}) => (
+            <article class="info" data-info={key}>
+              <h3>{label}</h3>
+              <p class="info__value">{value}</p>
+              {key === "repotting" && <p class="info__extra">Ogni: {item.frequency}</p>}
+              {key === "light" && (
+                <p class="info__extra">
+                  Regge una casa poco luminosa: {DIM_HOME_LABELS[item.dimHome as keyof typeof DIM_HOME_LABELS]}
+                  {item.supplementalLight && ` · Luce artificiale: ${item.supplementalLight}`}
+                </p>
+              )}
+              <p class="info__note">{item.note}</p>
+            </article>
+          ))}
+        </section>
+      ))
+  }
+
+  {
+    data.sources && data.researchedOn && (
+      <section class="group" aria-labelledby="sources">
+        <h2 id="sources">Fonti</h2>
+        <p class="researched">
+          Ultima ricerca: <time datetime={data.researchedOn.toISOString().slice(0, 10)}>{dateFormat.format(data.researchedOn)}</time>
+        </p>
+        <ul class="sources" role="list">
+          {data.sources.map((source) => (
+            <li>
+              <a href={source.url} rel="noopener">{source.title}</a>
+              <span class:list={["source-type", `source-type--${source.type}`]}>
+                {SOURCE_TYPE_LABELS[source.type]}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    Content && (
+      <section class="group personal-note" aria-labelledby="personal-note">
+        <h2 id="personal-note">Nota personale</h2>
+        <Content />
+      </section>
+    )
+  }
+</Layout>
+
+<style>
+  .back { margin-block-end: 0.5rem; font-size: 0.9375rem; }
+  h1 { font-size: 1.625rem; line-height: 1.2; }
+  .botanical-name { color: var(--text-muted); }
+  .tags { display: flex; gap: 0.5rem; margin-block: 0.5rem var(--space); font-size: 0.8125rem; }
+  .status { padding: 0.125rem 0.5rem; border-radius: 999px; font-weight: 600; }
+  .status--growing { background: var(--growing-background); color: var(--growing-text); }
+  .status--planned { background: var(--planned-background); color: var(--planned-text); }
+  .pending { color: var(--text-muted); }
+  .group { margin-block-start: 1.5rem; }
+  .group > h2 { font-size: 1.25rem; margin-block-end: 0.5rem; }
+  .info {
+    padding: 0.75rem var(--space);
+    margin-block-end: 0.625rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .info h3 { font-size: 0.875rem; color: var(--text-muted); font-weight: 600; }
+  .info__value { font-size: 1.125rem; font-weight: 600; overflow-wrap: anywhere; }
+  .info__extra { font-size: 0.9375rem; }
+  .info__note { color: var(--text-muted); font-size: 0.9375rem; margin-block-start: 0.25rem; }
+  .sources { display: grid; gap: 0.5rem; }
+  .sources a { overflow-wrap: anywhere; }
+  .source-type { margin-inline-start: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); }
+  .researched { margin-block-end: 0.5rem; color: var(--text-muted); }
+  .personal-note :global(p) { margin-block-end: 0.5rem; }
+</style>
