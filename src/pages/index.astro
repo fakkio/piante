@@ -1,5 +1,6 @@
 ---
 import {getCollection} from "astro:content";
+import {Image} from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import {sitePath} from "../paths";
 import {
@@ -122,6 +123,13 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
             ...plant.aliases,
           ])}
         >
+          <div class="plant__photo">
+            {plant.photo ? (
+              <Image src={plant.photo.file} alt={plant.commonName} width={128} height={128} loading="lazy" />
+            ) : (
+              <span aria-hidden="true">{plant.commonName.charAt(0)}</span>
+            )}
+          </div>
           <div class="plant__names">
             <h2><a class="plant__link" href={sitePath(`cards/${plant.id}/`)}>{plant.commonName}</a></h2>
             <p class="plant__botanical-name">
@@ -388,8 +396,12 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
   .plant {
     position: relative;
     display: grid;
-    gap: 0.5rem;
-    padding: 0.875rem var(--space);
+    grid-template-columns: 4rem 1fr;
+    grid-template-areas: "photo names" "photo tags";
+    column-gap: 0.875rem;
+    row-gap: 0.25rem;
+    align-items: center;
+    padding: 0.75rem var(--space);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -415,7 +427,28 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
   }
 
   .plant__names {
+    grid-area: names;
     min-width: 0;
+  }
+
+  .plant__photo {
+    grid-area: photo;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--growing-background);
+    color: var(--growing-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .plant__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   h2 {
@@ -431,6 +464,7 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
   }
 
   .plant__tags {
+    grid-area: tags;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

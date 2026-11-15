@@ -36,6 +36,10 @@ Single-context: un `GLOSSARY.md` e `docs/adr/` alla radice. See `docs/agents/dom
 
 Le Fonti vanno lette davvero; alcune richiedono un browser vero. See `docs/agents/research.md`.
 
+### Foto
+
+Ogni Pianta può avere una foto da Wikimedia Commons (solo licenze di riuso) o del proprietario. See `docs/agents/photos.md`.
+
 ### Branching (solo `main`)
 
 Si committa su `main`, ogni push pubblica; rami `feature/<slug>` solo per modifiche grosse alla pagina. Niente gitflow, release o changelog. See `docs/agents/branching.md`.

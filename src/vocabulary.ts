@@ -104,3 +104,7 @@ export const LIGHT_FILTER_LABELS = {
   medium: "Luce media",
   high: "Luce alta",
 } as const;
+
+// Licenses that allow reuse on a public site, as Commons writes them:
+// public domain, CC0, CC BY and CC BY-SA (with version).
+export const PHOTO_LICENSE_PATTERN = /^(Public domain|CC0( 1\.0)?|CC BY(-SA)? \d\.\d)$/;

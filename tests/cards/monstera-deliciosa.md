@@ -4,6 +4,12 @@ commonNames: [Monstera]
 aliases: [pianta del formaggio svizzero]
 category: ornamental
 status: growing
+photo:
+  origin: commons
+  file: ./photos/monstera-deliciosa.jpg
+  author: Autrice Alfa
+  license: CC BY-SA 4.0
+  sourceUrl: https://commons.wikimedia.org/wiki/File:Monstera_alfa.jpg
 infos:
   soil: {value: "Terriccio alfa", note: "Nota terriccio alfa."}
   repotting: {value: [3, 4], frequency: "2 anni", note: "Nota rinvaso alfa."}

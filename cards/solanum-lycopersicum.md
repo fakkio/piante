@@ -4,6 +4,12 @@ commonNames: [Pomodoro]
 aliases: [cuore di bue, ciliegino, ciliegino nero]
 category: vegetable
 status: planned
+photo:
+  origin: commons
+  file: ./photos/solanum-lycopersicum.jpg
+  author: Wilfredor
+  license: CC0
+  sourceUrl: https://commons.wikimedia.org/wiki/File:Tomatoes.jpg
 infos:
   soil:
     value: "Terreno profondo, fertile, ben drenato e ricco di sostanza organica"

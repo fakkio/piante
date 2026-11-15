@@ -4,6 +4,12 @@ commonNames: [Fico del caucciù]
 aliases: [ficus, albero della gomma]
 category: ornamental
 status: growing
+photo:
+  origin: commons
+  file: ./photos/ficus-elastica.jpg
+  author: Alvesgaspar
+  license: CC BY-SA 4.0
+  sourceUrl: https://commons.wikimedia.org/wiki/File:Ficus_November_2008-1.jpg
 infos:
   soil:
     value: "Terriccio da piante da appartamento, ben drenante e aerato"
