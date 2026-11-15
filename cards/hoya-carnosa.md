@@ -37,7 +37,7 @@ infos:
     note: "L'RHS indica 16–24 °C in primavera-estate, Iowa State 18–27 °C (65–80 °F), con notti un po' più fresche che favoriscono la fioritura."
   minTemperature:
     value: 13
-    note: "Iowa State dice che non tollera meno di 13 °C (55 °F); l'RHS indica 10 °C come minima notturna d'inverno per la specie. Ho preso la soglia più prudente."
+    note: "Iowa State dice che non tollera meno di 13 °C (55 °F); l'RHS indica 10 °C come minima notturna d'inverno per la specie. Si adotta la soglia più prudente."
   humidity:
     value: medium
     note: "Iowa State indica come ideale il 40–60% e tollera l'aria domestica; l'RHS dice che d'estate soffre l'aria secca, con aria molto secca compaiono i ragnetti rossi."

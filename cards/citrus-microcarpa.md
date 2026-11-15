@@ -29,7 +29,7 @@ infos:
     note: "UF/IFAS Nassau: concime a lenta cessione per agrumi a marzo, giugno e settembre; Cornell: tre volte nella stagione di crescita (primavera, inizio e fine estate), poi basta in autunno e in inverno."
   light:
     value: high
-    dimHome: no
+    dimHome: "no"
     supplementalLight: "lampada da coltivazione a LED, se resta in casa in inverno"
     note: "Vuole molto sole: almeno 6 ore di sole diretto (Cornell), con un po' d'ombra nel tardo pomeriggio che non pregiudica i frutti (UF/IFAS Nassau). In una casa poco luminosa soffre: d'estate va fuori, in inverno nel punto più luminoso e con luce artificiale."
   idealTemperature:

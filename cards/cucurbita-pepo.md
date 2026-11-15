@@ -48,7 +48,7 @@ infos:
     note: "SDSU preferisce la semina diretta (seme a 1 cm, trapianti con non più di 1-2 foglie vere); Cose di Casa ammette il semenzaio a marzo-aprile. Il seme ripreso da frutti di ibridi o di incroci può dare frutti amari e tossici (SDSU)."
   toxicity:
     value: none
-    note: "Il frutto è commestibile; le fonti consultate non trattano la tossicità per animali domestici e non l'ho verificata su ASPCA. Frutti amari da seme di incrocio vanno scartati (SDSU)."
+    note: "Il frutto è commestibile; le fonti consultate non trattano la tossicità per animali domestici e la voce ASPCA non è stata verificata. Frutti amari da seme di incrocio vanno scartati (SDSU)."
   pests:
     value: "Oidio, peronospora, batteriosi, afidi, cimici delle zucche, diabrotiche, marciume apicale"
     note: "Oidio (mal bianco) frequente col caldo: varietà resistenti, e bicarbonato come rimedio (Cose di Casa, fonte di ripiego). Le diabrotiche diffondono batteriosi e virosi (SDSU). La Regione Marche raccomanda varietà tolleranti ai virus (ZYMV, WMV) e vieta il ristoppio: almeno 2 anni di intervallo, e non dopo altre cucurbitacee, solanacee o fagiolo."

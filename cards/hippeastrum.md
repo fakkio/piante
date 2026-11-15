@@ -29,7 +29,7 @@ infos:
     note: "Dopo la fioritura, con le foglie in crescita: Clemson due volte al mese, Illinois una volta al mese, Iowa State ogni 2-4 settimane a mezza dose fino a luglio. Non concimare un bulbo senza foglie né durante il riposo."
   light:
     value: high
-    dimHome: no
+    dimHome: "no"
     supplementalLight: "consigliata una lampada da coltivazione a LED"
     note: "Clemson chiede almeno 4 ore di sole diretto al giorno, Illinois una finestra soleggiata: in una casa poco luminosa, lontano dalla finestra più soleggiata, le foglie si allungano e il bulbo non ricarica. Durante la fioritura meglio fuori dal sole diretto, per far durare i fiori."
   idealTemperature:

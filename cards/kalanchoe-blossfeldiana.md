@@ -26,10 +26,10 @@ infos:
     note: "Le fonti consultate non distinguono estate e inverno: la regola resta annaffiare con parsimonia, quindi in inverno, con meno luce e temperature basse, ancora meno spesso."
   fertilizing:
     value: [4, 5, 6, 7, 8, 9]
-    note: "Clemson: ogni mese con un concime per piante da appartamento mentre la pianta cresce. Nessuna fonte dà i mesi: ho scelto la stagione di crescita."
+    note: "Clemson: ogni mese con un concime per piante da appartamento mentre la pianta cresce. Nessuna fonte dà i mesi: si indica la stagione di crescita."
   light:
     value: high
-    dimHome: no
+    dimHome: "no"
     supplementalLight: "in casa poco luminosa serve una lampada da coltivazione a LED, accesa di giorno e spenta prima del buio"
     note: "Clemson la vuole in pieno sole o in luce intensa e dice che con poca luce diventa filata; l'Illinois e NC State indicano luce intensa indiretta, con ombra nel pomeriggio, perché il sole diretto brucia le foglie. NC State chiede 6–8 ore di luce intensa al giorno: in una casa buia non basta quella naturale, meglio la finestra più luminosa o la lampada."
   idealTemperature:
@@ -55,7 +55,7 @@ infos:
     note: "Clemson cita cocciniglia cotonosa, afidi e cocciniglia bruna (da pulire a mano o con alcol) e l'oidio, da prevenire con aria circolante. Il marciume viene dall'eccesso di acqua o dal drenaggio scarso. La mancata fioritura dipende quasi sempre da troppa luce serale."
   overwintering:
     value: {protection: indoors, bringIn: [10], bringOut: [5], threshold: 7}
-    note: "D'estate può stare fuori in mezz'ombra luminosa; va rientrata in ottobre, prima che le notti scendano verso i 7 °C. Fuori solo dopo il rischio di gelate: le fonti non danno i mesi, li ho adattati alla pianura."
+    note: "D'estate può stare fuori in mezz'ombra luminosa; va rientrata in ottobre, prima che le notti scendano verso i 7 °C. Fuori solo dopo il rischio di gelate: le fonti non danno i mesi, sono adattati alla pianura."
   flowering:
     value: [1, 2, 3, 4]
     reflowering: "Specie a giorno corto: per rifiorire servono circa 6 settimane di notti di 14 ore di buio totale. Da inizio ottobre (o da metà settembre per anticipare) porre la pianta ogni giorno dalle 17–18 fino alle 8 del mattino in un armadio o sotto una scatola opaca, poi riportarla alla luce; i fiori arrivano dopo circa 12 settimane, quindi da gennaio. Evitare lampade accese la sera e temperature notturne oltre 27 °C. Visti i boccioli, il buio non serve più."
