@@ -63,7 +63,7 @@ infos:
     note: "Cornell: determinate 30–60 cm, indeterminate sostenute 35–50 cm, indeterminate senza sostegno 60–90 cm; WSU 45 cm."
   supports:
     value: "Tutore alto circa 1,8 m o gabbia di rete"
-    note: "Indispensabile per le varietà indeterminate (la maggior parte delle varietà da orto), facoltativo per quelle a cespuglio. Cornell: paletti di circa 1,8 m piantati 20–25 cm nel terreno, o gabbie di rete di 55 cm di diametro; legare il fusto man mano. I frutti grossi del cuore di bue sono i più pesanti da reggere."
+    note: "Indispensabile per le varietà indeterminate (la maggior parte delle varietà da orto), facoltativo per quelle a cespuglio. Cornell: paletti di circa 1,8 m piantati 20–25 cm nel terreno, o gabbie di rete di 55 cm di diametro; legare il fusto man mano. Il cuore di bue è a crescita indeterminata e arriva a circa 150 cm: ha bisogno di una struttura di sostegno più robusta e organizzata (fonte di ripiego: Cose di Casa). Per ciliegino e ciliegino nero nessuna fonte letta dichiara il portamento: verificare sull'etichetta."
   harvest:
     value: [7, 8, 9]
     note: "Il frutto si coglie al colore pieno, ancora un po' sodo (WSU), circa un mese dopo l'allegagione. Cornell conta 65–80 giorni dal trapianto per le varietà medie. Le fonti non distinguono i tempi tra cuore di bue, ciliegino e ciliegino nero: verificare i giorni indicati sull'etichetta della varietà."
@@ -74,5 +74,8 @@ sources:
   - title: "Washington State University Extension: Growing Tomatoes in Home Gardens (FS145E)"
     url: "https://pubs.extension.wsu.edu/growing-tomatoes-in-home-gardens-home-garden-series"
     type: institutional
+  - title: "Cose di Casa: Coltivare i pomodori nell'orto (fonte di ripiego, solo per il cuore di bue)"
+    url: "https://www.cosedicasa.com/casa-in-fiore/orto/le-migliori-varieta-di-pomodoro-da-coltivare-33439"
+    type: fallback
 researchedOn: 2026-11-15
 ---
