@@ -27,6 +27,10 @@ const description =
   <body>
     <header class="site-header">
       <a class="site-header__title" href={sitePath()}>Piante</a>
+      <nav class="site-header__nav" aria-label="Sezioni">
+        <a href={sitePath()}>Elenco</a>
+        <a href={sitePath("this-month/")}>Questo mese</a>
+      </nav>
     </header>
     <main>
       <slot />

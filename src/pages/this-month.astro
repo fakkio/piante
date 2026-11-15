@@ -1,0 +1,141 @@
+---
+import {getCollection} from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import {ACTIVITIES} from "../activities";
+import {sitePath} from "../paths";
+import {ACTIVITY_LABELS, MONTH_LABELS} from "../vocabulary";
+
+const plants = (await getCollection("cards"))
+  .map(({id, data}) => ({id, commonName: data.commonNames[0]!, infos: data.infos}))
+  .sort((a, b) => a.commonName.localeCompare(b.commonName, "it"));
+
+const capitalize = (text: string) => text[0]!.toUpperCase() + text.slice(1);
+
+// For each month, the activities that have at least one plant.
+const months = MONTH_LABELS.map((label, index) => ({
+  label,
+  activities: ACTIVITIES.map((activity) => ({
+    ...activity,
+    plants: plants.filter((plant) => {
+      const info = plant.infos?.[activity.info];
+      return info !== undefined && (info.value as readonly number[]).includes(index + 1);
+    }),
+  })).filter((activity) => activity.plants.length > 0),
+}));
+---
+
+<Layout title="Questo mese">
+  <h1 id="month-title" aria-live="polite"></h1>
+
+  <div class="month-picker">
+    <button type="button" id="month-prev" aria-label="Mese precedente">‹</button>
+    <select id="month-select" aria-label="Mese" data-months={JSON.stringify(MONTH_LABELS)}>
+      {MONTH_LABELS.map((label) => <option value={label}>{capitalize(label)}</option>)}
+    </select>
+    <button type="button" id="month-next" aria-label="Mese successivo">›</button>
+  </div>
+
+  {
+    months.map(({label, activities}) => (
+      <div class="month" data-month={label} hidden>
+        {activities.length === 0 ? (
+          <p class="empty" role="status">Nessuna attività questo mese.</p>
+        ) : (
+          activities.map((activity) => (
+            <section class="activity" aria-labelledby={`${label}-${activity.key}`}>
+              <h2 id={`${label}-${activity.key}`}>{ACTIVITY_LABELS[activity.key]}</h2>
+              <ul role="list">
+                {activity.plants.map((plant) => (
+                  <li><a href={sitePath(`cards/${plant.id}/`)}>{plant.commonName}</a></li>
+                ))}
+              </ul>
+            </section>
+          ))
+        )}
+      </div>
+    ))
+  }
+</Layout>
+
+<script>
+  const title = document.querySelector<HTMLElement>("#month-title")!;
+  const select = document.querySelector<HTMLSelectElement>("#month-select")!;
+  const labels = JSON.parse(select.dataset.months!) as string[];
+  const panels = [...document.querySelectorAll<HTMLElement>("[data-month]")];
+
+  function show(index: number) {
+    const current = ((index % 12) + 12) % 12;
+    for (const panel of panels) panel.hidden = panel.dataset.month !== labels[current];
+    select.value = labels[current]!;
+    title.textContent = labels[current]![0]!.toUpperCase() + labels[current]!.slice(1);
+  }
+
+  const currentIndex = () => labels.indexOf(select.value);
+
+  // The current month is the browser's, at the time of the visit.
+  show(new Date().getMonth());
+  select.addEventListener("change", () => show(currentIndex()));
+  document.querySelector("#month-prev")!.addEventListener("click", () => show(currentIndex() - 1));
+  document.querySelector("#month-next")!.addEventListener("click", () => show(currentIndex() + 1));
+</script>
+
+<style>
+  h1 {
+    font-size: 1.625rem;
+    line-height: 1.2;
+    margin-block-end: var(--space);
+  }
+
+  .month-picker {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    gap: 0.5rem;
+    margin-block-end: var(--space);
+  }
+
+  .month-picker button,
+  .month-picker select {
+    min-height: 3rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  .month-picker button {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .activity {
+    margin-block-end: 1.25rem;
+  }
+
+  .activity h2 {
+    font-size: 1.125rem;
+    margin-block-end: 0.5rem;
+  }
+
+  .activity ul {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .activity li a {
+    display: block;
+    padding: 0.75rem var(--space);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .empty {
+    padding: var(--space);
+    color: var(--text-muted);
+    text-align: center;
+  }
+</style>

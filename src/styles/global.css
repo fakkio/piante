@@ -79,7 +79,25 @@ main {
 }
 
 .site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem var(--space);
   padding-block: var(--space) 0.25rem;
+}
+
+.site-header__nav {
+  display: flex;
+  gap: var(--space);
+}
+
+.site-header__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--text);
+  font-size: 0.9375rem;
 }
 
 .site-header__title {

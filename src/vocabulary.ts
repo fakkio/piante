@@ -64,3 +64,9 @@ export const MONTH_LABELS = [
 ] as const;
 
 export type Theme = keyof typeof THEME_LABELS;
+
+// Activity types of the "this month" view.
+export const ACTIVITY_LABELS = {
+  repotting: "Rinvaso",
+  fertilizing: "Concimazione",
+} as const;
