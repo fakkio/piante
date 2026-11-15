@@ -49,7 +49,7 @@ infos:
     note: "La specie è poco soggetta a malattie; capita la cocciniglia (scale). Il marciume viene da terriccio che drena male o da annaffiature troppo frequenti. Poca luce, aria secca o correnti fredde fanno cadere le foglie. Lavare le foglie impolverate aiuta a notare i parassiti."
   overwintering:
     value: {protection: indoors, bringIn: [10], bringOut: [5], threshold: 13}
-    note: "Vive in casa tutto l'anno: se d'estate sta fuori, ritirarla prima che le notti scendano sotto i 13 °C (soglia di prudenza di Clemson) e riportarla a maggio. Dopo il rientro, almeno quattro settimane senza rinvasi, potature e concimazioni."
+    note: "D'estate sta fuori: ritirarla in casa prima che le notti scendano sotto i 13 °C (soglia di prudenza di Clemson) e riportarla fuori a maggio. Dopo il rientro, almeno quattro settimane senza rinvasi, potature e concimazioni."
   flowering:
     applicable: false
     note: "Le fonti consultate non la trattano: in coltura da appartamento non si coltiva per i fiori."
