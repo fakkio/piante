@@ -1,0 +1,165 @@
+---
+import {getCollection} from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import {formatValue} from "../format";
+import {INFOS, INFO_KEYS, type InfoKey} from "../infos";
+import {sitePath} from "../paths";
+
+const plants = (await getCollection("cards"))
+  .map(({id, data}) => ({id, commonName: data.commonNames[0]!, infos: data.infos}))
+  .sort((a, b) => a.commonName.localeCompare(b.commonName, "it"));
+
+// The columns shown when the page opens.
+const DEFAULT_COLUMNS: ReadonlySet<InfoKey> = new Set(["light", "minTemperature", "toxicity"]);
+---
+
+<Layout title="Confronto">
+  <h1>Confronto</h1>
+
+  <fieldset class="columns">
+    <legend>Colonne</legend>
+    {
+      INFO_KEYS.map((key) => (
+        <label class="columns__option">
+          <input
+            type="checkbox"
+            data-column={key}
+            checked={DEFAULT_COLUMNS.has(key)}
+          />
+          {INFOS[key].label}
+        </label>
+      ))
+    }
+  </fieldset>
+
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Tabella di confronto">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Pianta</th>
+          {
+            INFO_KEYS.map((key) => (
+              <th scope="col" data-column={key}>{INFOS[key].label}</th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          plants.map((plant) => (
+            <tr>
+              <th scope="row"><a href={sitePath(`cards/${plant.id}/`)}>{plant.commonName}</a></th>
+              {INFO_KEYS.map((key) => {
+                const item = plant.infos?.[key];
+                return item ? (
+                  <td data-column={key}>{formatValue(key, item.value)}</td>
+                ) : (
+                  // The card has no researched infos yet.
+                  <td data-column={key} class="missing" aria-label="Non ancora ricercato">—</td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</Layout>
+
+<script>
+  const boxes = [...document.querySelectorAll<HTMLInputElement>("input[data-column]")];
+
+  function applyColumns() {
+    for (const box of boxes) {
+      for (const cell of document.querySelectorAll<HTMLElement>(
+        `th[data-column="${box.dataset.column}"], td[data-column="${box.dataset.column}"]`,
+      )) {
+        cell.hidden = !box.checked;
+      }
+    }
+  }
+
+  for (const box of boxes) box.addEventListener("change", applyColumns);
+  // Back navigation restores the checkboxes: apply them again to the table.
+  window.addEventListener("pageshow", applyColumns);
+  applyColumns();
+</script>
+
+<style>
+  h1 {
+    font-size: 1.625rem;
+    line-height: 1.2;
+    margin-block-end: var(--space);
+  }
+
+  .columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    margin: 0 0 var(--space);
+    padding: 0.5rem var(--space);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .columns__option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+  }
+
+  .columns__option input {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: start;
+    vertical-align: top;
+    min-width: 8rem;
+    background: var(--surface);
+  }
+
+  /* The name column stays put while the table scrolls sideways. */
+  th:first-child {
+    position: sticky;
+    inset-inline-start: 0;
+    min-width: 6.5rem;
+    border-inline-end: 1px solid var(--border);
+    z-index: 1;
+  }
+
+  thead th {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  tbody th a {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .missing {
+    color: var(--text-muted);
+  }
+</style>

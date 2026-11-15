@@ -1,13 +1,12 @@
 ---
 import {getCollection, render} from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import {INFOS, INFO_KEYS, type InfoKey} from "../../infos";
+import {INFOS, INFO_KEYS} from "../../infos";
+import {formatValue} from "../../format";
 import {sitePath} from "../../paths";
 import {
   CATEGORY_LABELS,
   DIM_HOME_LABELS,
-  LEVEL_LABELS,
-  MONTH_LABELS,
   SOURCE_TYPE_LABELS,
   STATUS_LABELS,
   THEME_LABELS,
@@ -26,15 +25,6 @@ const {data} = entry;
 const commonName = data.commonNames[0]!;
 const hasPersonalNote = (entry.body ?? "").trim().length > 0;
 const {Content} = hasPersonalNote ? await render(entry) : {Content: null};
-
-const formatValue = (key: InfoKey, value: any): string => {
-  if (key === "light" || key === "humidity") return LEVEL_LABELS[value as keyof typeof LEVEL_LABELS];
-  if (key === "repotting" || key === "fertilizing")
-    return (value as number[]).map((m) => MONTH_LABELS[m - 1]).join(", ");
-  if (key === "idealTemperature") return `${value.min}–${value.max} °C`;
-  if (key === "minTemperature") return `${value} °C`;
-  return String(value);
-};
 
 const infos = data.infos;
 const themes = (Object.keys(THEME_LABELS) as Theme[]).map((theme) => ({
