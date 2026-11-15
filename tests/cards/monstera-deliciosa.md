@@ -18,6 +18,8 @@ infos:
   propagation: {value: "Talea alfa", note: "Nota propagazione alfa."}
   toxicity: {value: both, note: "Nota tossicità alfa."}
   pests: {value: "Cocciniglia alfa", note: "Nota parassiti alfa."}
+  overwintering: {value: {protection: indoors, bringIn: [10], bringOut: [5], threshold: 10}, note: "Nota svernamento alfa."}
+  flowering: {applicable: false, note: "Nota fioritura alfa."}
 sources:
   - {title: "Fonte istituzionale alfa", url: "https://example.edu/alfa", type: institutional}
   - {title: "Fonte di ripiego alfa", url: "https://example.com/alfa", type: fallback}

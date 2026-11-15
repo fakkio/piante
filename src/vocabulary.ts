@@ -42,6 +42,12 @@ export const DIM_HOME_LABELS = {
   no: "No",
 } as const;
 
+export const PROTECTION_LABELS = {
+  indoors: "In casa",
+  greenhouse: "In serretta",
+  fleece: "Sotto tessuto non tessuto",
+} as const;
+
 export const THEME_LABELS = {
   soil: "Terreno e rinvaso",
   water: "Acqua e concime",
@@ -76,6 +82,12 @@ export type Theme = keyof typeof THEME_LABELS;
 export const ACTIVITY_LABELS = {
   repotting: "Rinvaso",
   fertilizing: "Concimazione",
+  sowing: "Semina",
+  transplanting: "Trapianto",
+  harvest: "Raccolta",
+  flowering: "Fioritura",
+  bringIn: "Ritirare",
+  bringOut: "Riportare fuori",
 } as const;
 
 // Labels of the list filters: the groups, and the checkbox of each level of

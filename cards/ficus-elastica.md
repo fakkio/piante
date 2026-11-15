@@ -47,6 +47,12 @@ infos:
   pests:
     value: "Cocciniglia, cocciniglia cotonosa, marciume radicale"
     note: "La specie è poco soggetta a malattie; capita la cocciniglia (scale). Il marciume viene da terriccio che drena male o da annaffiature troppo frequenti. Poca luce, aria secca o correnti fredde fanno cadere le foglie. Lavare le foglie impolverate aiuta a notare i parassiti."
+  overwintering:
+    value: {protection: indoors, bringIn: [10], bringOut: [5], threshold: 13}
+    note: "Vive in casa tutto l'anno: se d'estate sta fuori, ritirarla prima che le notti scendano sotto i 13 °C (soglia di prudenza di Clemson) e riportarla a maggio. Dopo il rientro, almeno quattro settimane senza rinvasi, potature e concimazioni."
+  flowering:
+    applicable: false
+    note: "Le fonti consultate non la trattano: in coltura da appartamento non si coltiva per i fiori."
 sources:
   - title: "UF/IFAS: Ficus elastica, Rubber Tree (ENH411)"
     url: "https://edis.ifas.ufl.edu/publication/ST252"
@@ -60,7 +66,7 @@ sources:
   - title: "ASPCA: Indian Rubber Plant (Ficus benjamina), per la tossicità"
     url: "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/indian-rubber-plant"
     type: fallback
-researchedOn: 2026-11-14
+researchedOn: 2026-11-15
 ---
 
 Esemplare adulto, di buone dimensioni.

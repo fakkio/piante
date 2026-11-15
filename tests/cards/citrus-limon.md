@@ -17,6 +17,9 @@ infos:
   propagation: {value: "Talea beta", note: "Nota propagazione beta."}
   toxicity: {value: animals, note: "Nota tossicità beta."}
   pests: {value: "Cocciniglia beta", note: "Nota parassiti beta."}
+  overwintering: {value: {protection: fleece, bringIn: [11], bringOut: [3], threshold: 0}, note: "Nota svernamento beta."}
+  flowering: {value: [4, 5], reflowering: "Rifioritura beta", note: "Nota fioritura beta."}
+  harvest: {value: [11, 12], note: "Nota raccolta beta."}
 sources:
   - {title: "Fonte istituzionale beta", url: "https://example.edu/beta", type: institutional}
   - {title: "Fonte di ripiego beta", url: "https://example.com/beta", type: fallback}

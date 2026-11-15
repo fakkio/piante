@@ -2,7 +2,7 @@
 import {getCollection, render} from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import {INFOS, INFO_KEYS, isNotApplicable} from "../../infos";
-import {formatValue} from "../../format";
+import {formatMonths, formatValue} from "../../format";
 import {sitePath} from "../../paths";
 import {
   CATEGORY_LABELS,
@@ -30,7 +30,7 @@ const infos = data.infos;
 const themes = (Object.keys(THEME_LABELS) as Theme[]).map((theme) => ({
   theme,
   entries: infos
-    ? INFO_KEYS.filter((key) => INFOS[key].theme === theme).map((key) => {
+    ? INFO_KEYS.filter((key) => INFOS[key].theme === theme && infos[key] !== undefined).map((key) => {
         const item = infos[key] as any;
         const value = isNotApplicable(item) ? "Non applicabile" : formatValue(key, item.value);
         return {key, label: INFOS[key].label, value, item};
@@ -71,6 +71,14 @@ const dateFormat = new Intl.DateTimeFormat("it-IT", {dateStyle: "long", timeZone
                   Regge una casa poco luminosa: {DIM_HOME_LABELS[item.dimHome as keyof typeof DIM_HOME_LABELS]}
                   {item.supplementalLight && ` · Luce artificiale: ${item.supplementalLight}`}
                 </p>
+              )}
+              {key === "overwintering" && !isNotApplicable(item) && (
+                <p class="info__extra">
+                  Ritirare: {formatMonths(item.value.bringIn)} · Riportare fuori: {formatMonths(item.value.bringOut)}
+                </p>
+              )}
+              {key === "flowering" && !isNotApplicable(item) && item.reflowering && (
+                <p class="info__extra">Rifioritura: {item.reflowering}</p>
               )}
               <p class="info__note">{item.note}</p>
             </article>

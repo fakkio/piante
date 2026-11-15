@@ -53,9 +53,9 @@ const filterGroups = [
 const facetsOf = (plant: (typeof plants)[number]) => ({
   category: [plant.category],
   status: [plant.status],
-  light: plant.infos && "value" in plant.infos.light ? [plant.infos.light.value as string] : [],
+  light: plant.infos?.light && "value" in plant.infos.light ? [plant.infos.light.value as string] : [],
   toxicity:
-    plant.infos && "value" in plant.infos.toxicity
+    plant.infos?.toxicity && "value" in plant.infos.toxicity
       ? toxicityFacets[plant.infos.toxicity.value as keyof typeof TOXICITY_LABELS]
       : [],
 });

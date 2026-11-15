@@ -1,7 +1,7 @@
 ---
 import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import {ACTIVITIES} from "../activities";
+import {ACTIVITIES, activityMonths} from "../activities";
 import {sitePath} from "../paths";
 import {ACTIVITY_LABELS, MONTH_LABELS} from "../vocabulary";
 
@@ -16,10 +16,7 @@ const months = MONTH_LABELS.map((label, index) => ({
   label,
   activities: ACTIVITIES.map((activity) => ({
     ...activity,
-    plants: plants.filter((plant) => {
-      const info = plant.infos?.[activity.info];
-      return info !== undefined && "value" in info && (info.value as readonly number[]).includes(index + 1);
-    }),
+    plants: plants.filter((plant) => activityMonths(activity, plant.infos).includes(index + 1)),
   })).filter((activity) => activity.plants.length > 0),
 }));
 ---

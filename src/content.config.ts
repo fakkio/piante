@@ -3,7 +3,7 @@ import {glob} from "astro/loaders";
 import {z} from "astro/zod";
 import {resolve} from "node:path";
 import {pathToFileURL} from "node:url";
-import {infosSchema, sourceSchema} from "./infos";
+import {checkInfosForCategory, infosSchema, sourceSchema} from "./infos";
 import {CATEGORIES, STATUSES} from "./vocabulary";
 
 // The cards folder is configurable: tests build the site on fixture cards,
@@ -24,17 +24,17 @@ const cards = defineCollection({
     status: z.enum(STATUSES),
     // Researched content. A card still waiting for its research has none of
     // the three; a card with any of them must have all, with every
-    // mandatory info.
+    // info that applies to its category.
     infos: infosSchema.optional(),
     sources: z.array(sourceSchema).min(1).optional(),
     researchedOn: z.coerce.date().optional(),
-  }).refine(
-    ({infos, sources, researchedOn}) => {
-      const present = [infos, sources, researchedOn].filter((v) => v !== undefined);
-      return present.length === 0 || present.length === 3;
-    },
-    "infos, sources and researchedOn go together",
-  ),
+  }).superRefine(({category, infos, sources, researchedOn}, ctx) => {
+    const present = [infos, sources, researchedOn].filter((v) => v !== undefined);
+    if (present.length !== 0 && present.length !== 3) {
+      ctx.addIssue({code: "custom", message: "infos, sources and researchedOn go together"});
+    }
+    if (infos) checkInfosForCategory(category, infos, ctx);
+  }),
 });
 
 export const collections = {cards};
