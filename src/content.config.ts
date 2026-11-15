@@ -21,7 +21,7 @@ const photoSchema = (image: ImageFunction) =>
       file: image(),
       author: nonEmptyText,
       license: z.string().regex(PHOTO_LICENSE_PATTERN, "license must allow reuse"),
-      sourceUrl: z.url(),
+      sourceUrl: z.url().startsWith("https://commons.wikimedia.org/wiki/File:", "sourceUrl must be a Commons file page"),
     }),
     z.strictObject({origin: z.literal("own"), file: image()}),
   ]);

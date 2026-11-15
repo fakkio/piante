@@ -15,8 +15,8 @@ Ogni Pianta può avere una foto (`photo` nel frontmatter), mostrata nell'elenco 
      origin: commons
      file: ./photos/<id>.jpg
      author: Nome dell'autore   # pulito da HTML e note
-     license: CC BY-SA 4.0      # come la scrive Commons
-     sourceUrl: https://commons.wikimedia.org/wiki/File:...
+     license: CC BY-SA 4.0      # nella forma breve di Commons, con versione (es. CC BY 4.0, CC0)
+     sourceUrl: https://commons.wikimedia.org/wiki/File:...  # deve essere la pagina del file
    ```
 
 La build fallisce se manca autore o licenza, se la licenza non è tra quelle ammesse, o se il file non esiste.
