@@ -39,8 +39,8 @@ infos:
     value: -29
     note: "USU: resiste fino a circa -20 °F (-29 °C); NC State la dà per le zone USDA 4–9 (fino a circa -34 °C). Le fonti non concordano sul limite: si cita il valore più prudente."
   humidity:
-    applicable: false
-    note: "Le fonti consultate non indicano un fabbisogno di umidità dell'aria: conta l'umidità del terreno, non quella dell'aria."
+    value: medium
+    note: "Le fonti non indicano l'umidità dell'aria: valore prudenziale, perché la menta ama il terreno fresco e umido più dell'aria umida."
   pruning:
     value: "Tagliare i fusti a circa 2,5 cm da terra, 2–3 volte l'anno prima della fioritura; a terra prima dell'inverno"
     note: "Fiorire riduce olio e sapore (USU); NC State consiglia di cimare le spighe dopo la fioritura per stimolare nuovi getti. Illinois suggerisce di togliere le spighe man mano che compaiono."

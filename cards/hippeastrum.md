@@ -31,7 +31,7 @@ infos:
     value: high
     dimHome: no
     supplementalLight: "consigliata una lampada da coltivazione a LED"
-    note: "Clemson chiede almeno 4 ore di sole diretto al giorno, Illinois una finestra soleggiata: in una casa poco luminosa, fuori dal salotto a ovest, le foglie si allungano e il bulbo non ricarica. Durante la fioritura meglio fuori dal sole diretto, per far durare i fiori."
+    note: "Clemson chiede almeno 4 ore di sole diretto al giorno, Illinois una finestra soleggiata: in una casa poco luminosa, lontano dalla finestra più soleggiata, le foglie si allungano e il bulbo non ricarica. Durante la fioritura meglio fuori dal sole diretto, per far durare i fiori."
   idealTemperature:
     value: {min: 21, max: 24}
     note: "Circa 70-75 °F (21-24 °C) per radicare e crescere (Clemson, Iowa State), poi 65-70 °F (18-21 °C) in fioritura per allungarla."

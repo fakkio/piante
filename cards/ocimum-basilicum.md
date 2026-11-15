@@ -37,8 +37,8 @@ infos:
     value: 10
     note: "Annuale tenera, non regge il gelo (Clemson: coprire se arriva una gelata tardiva). Illinois segnala che già intorno ai 10 °C (50 °F) le foglie possono annerire; RHS semina fuori solo con notti stabilmente sopra i 10 °C. Nessuna fonte dà la temperatura letale."
   humidity:
-    applicable: false
-    note: "Le fonti consultate non indicano un fabbisogno di umidità dell'aria: non è un fattore su cui si interviene."
+    value: medium
+    note: "Le fonti non indicano l'umidità dell'aria: valore prudenziale, senza ristagni sulle foglie."
   pruning:
     value: "Cimare le punte e togliere i fiori appena compaiono"
     note: "Pizzicare periodicamente le cime favorisce la ramificazione; i boccioli si eliminano subito perché la fioritura peggiora il sapore (Clemson, Illinois, RHS). Fa eccezione chi lo tiene per i fiori ornamentali o per gli impollinatori (RHS)."

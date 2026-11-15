@@ -38,8 +38,8 @@ infos:
     value: 10
     note: "Non regge il gelo: la crescita si ferma sotto i 10-13 °C e per il trapianto servono notti sopra i 10 °C (Cose di Casa, fonte di ripiego). SDSU pianta dopo l'ultima gelata, con terreno a circa 21 °C."
   humidity:
-    applicable: false
-    note: "Le fonti consultate non indicano un fabbisogno di umidità dell'aria: all'aperto non è un fattore su cui si interviene. L'umidità sul fogliame favorisce però oidio e malattie."
+    value: medium
+    note: "Le fonti non indicano l'umidità dell'aria: valore prudenziale. L'umidità sul fogliame favorisce però oidio e malattie."
   pruning:
     value: "Non necessaria; cimatura facoltativa e asportazione delle foglie vecchie"
     note: "Cose di Casa (fonte di ripiego): cimatura facoltativa sopra la 4a-5a foglia vera, via le foglie vecchie o malate e i polloni alla base. SDSU non tratta la potatura, ma consiglia di togliere i frutti troppo grossi, che riducono la produzione."

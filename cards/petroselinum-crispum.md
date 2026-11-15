@@ -38,8 +38,8 @@ infos:
     value: -5
     note: "Da Cose di Casa (fonte di ripiego): resiste fino a circa -5 °C. Wisconsin lo definisce solo \"biennale rustico\", senza soglia: valore da prendere con cautela."
   humidity:
-    applicable: false
-    note: "Le fonti consultate non indicano un fabbisogno di umidità dell'aria: all'aperto non è un fattore su cui si interviene."
+    value: medium
+    note: "Le fonti non indicano l'umidità dell'aria: valore prudenziale."
   pruning:
     value: "Raccolta a taglio: tagliare i gambi esterni vicino al suolo, togliere le foglie gialle"
     note: "Wisconsin: si pizzicano i rametti o si taglia tutta la pianta; Cose di Casa (fonte di ripiego): forbici a 2-3 cm dal suolo, senza strappare, e a rotazione per un raccolto continuo. Al secondo anno le foglie perdono sapore (Wisconsin)."
@@ -80,7 +80,7 @@ sources:
     type: institutional
   - title: "ASPCA: Parsley"
     url: "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/parsley"
-    type: institutional
+    type: fallback
   - title: "Cose di Casa: Prezzemolo (fonte di ripiego, scheda di coltivazione)"
     url: "https://www.cosedicasa.com/casa-in-fiore/piante/prezzemolo-92640"
     type: fallback
