@@ -42,7 +42,7 @@ infos:
     note: "Le fonti consultate non indicano un fabbisogno di umidità dell'aria: all'aperto non è un fattore su cui si interviene."
   pruning:
     value: "Scacchiatura: togliere i getti ascellari, lasciando 1–2 fusti"
-    note: "Vale per le varietà a crescita indeterminata (la maggior parte delle varietà da orto): cimare i getti quando sono lunghi 5–10 cm, ogni settimana. Non aumenta la produzione ma dà frutti più grossi e più precoci. Le varietà determinate (a cespuglio) di norma non si scacchiano. Le fonti non dicono se cuore di bue, ciliegino e ciliegino nero siano determinate o indeterminate: verificare sull'etichetta."
+    note: "Vale per le varietà a crescita indeterminata (la maggior parte delle varietà da orto): cimare i getti quando sono lunghi 5–10 cm, ogni settimana. Non aumenta la produzione ma dà frutti più grossi e più precoci. Le varietà determinate (a cespuglio) di norma non si scacchiano. Il cuore di bue è a crescita indeterminata e va scacchiato (Il Giardino delle Meraviglie, fonte di ripiego; cimatura facoltativa dopo il 4°–5° palco fiorale). Per ciliegino e ciliegino nero nessuna fonte letta dichiara il portamento: verificare sull'etichetta."
   propagation:
     value: "Seme, in semenzaio al chiuso"
     note: "Seminare 6–8 settimane prima del trapianto, a 3–6 mm di profondità, a 24–32 °C (Cornell: emergenza in 6–12 giorni). Le fonti non trattano la talea dei getti."
@@ -66,7 +66,7 @@ infos:
     note: "Indispensabile per le varietà indeterminate (la maggior parte delle varietà da orto), facoltativo per quelle a cespuglio. Cornell: paletti di circa 1,8 m piantati 20–25 cm nel terreno, o gabbie di rete di 55 cm di diametro; legare il fusto man mano. Il cuore di bue è a crescita indeterminata e arriva a circa 150 cm: ha bisogno di una struttura di sostegno più robusta e organizzata (fonte di ripiego: Cose di Casa). Per ciliegino e ciliegino nero nessuna fonte letta dichiara il portamento: verificare sull'etichetta."
   harvest:
     value: [7, 8, 9]
-    note: "Il frutto si coglie al colore pieno, ancora un po' sodo (WSU), circa un mese dopo l'allegagione. Cornell conta 65–80 giorni dal trapianto per le varietà medie. Le fonti non distinguono i tempi tra cuore di bue, ciliegino e ciliegino nero: verificare i giorni indicati sull'etichetta della varietà."
+    note: "Il frutto si coglie al colore pieno, ancora un po' sodo (WSU), circa un mese dopo l'allegagione. Cornell conta 65–80 giorni dal trapianto per le varietà medie. Le fonti istituzionali non distinguono le varietà. Fonti vivaistiche di ripiego: il cuore di bue è a ciclo medio-tardivo, con 60–80 giorni dal trapianto alla prima raccolta (Il Giardino delle Meraviglie, che nella stessa pagina scrive anche 60–90); il ciliegino nero tigrato circa 60 giorni (Piante & Passione). Per il ciliegino comune non c'è un dato: verificare sull'etichetta."
 sources:
   - title: "Cornell Cooperative Extension: Tomato growing guide"
     url: "https://gardening.cals.cornell.edu/garden-guidance/foodgarden/vegetable-growing-guides/tomato-growing-guide"
@@ -76,6 +76,12 @@ sources:
     type: institutional
   - title: "Cose di Casa: Coltivare i pomodori nell'orto (fonte di ripiego, solo per il cuore di bue)"
     url: "https://www.cosedicasa.com/casa-in-fiore/orto/le-migliori-varieta-di-pomodoro-da-coltivare-33439"
+    type: fallback
+  - title: "Il Giardino delle Meraviglie: Pomodoro cuore di bue classico (scheda vivaio, fonte di ripiego)"
+    url: "https://www.ilgiardinodellemeraviglie.it/it/pomodoro-cuore-di-bue-classico.html"
+    type: fallback
+  - title: "Piante & Passione: Pomodoro Ciliegino Nero Tigrato (scheda vivaio, fonte di ripiego)"
+    url: "https://www.pianteepassione.it/prodotti/collezione-pomodori/pomodoro-ciliegino-nero-tigrato/"
     type: fallback
 researchedOn: 2026-11-15
 ---
