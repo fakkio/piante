@@ -4,7 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import {sitePath} from "../paths";
 import {
   CATEGORY_LABELS,
-  LEVEL_LABELS,
+  FILTER_GROUP_LABELS,
+  LIGHT_FILTER_LABELS,
   STATUS_LABELS,
   TOXICITY_LABELS,
 } from "../vocabulary";
@@ -29,35 +30,25 @@ const toxicityFacets: Record<keyof typeof TOXICITY_LABELS, string[]> = {
   both: ["animals", "people"],
 };
 
+const toOptions = (labels: Record<string, string>) =>
+  Object.entries(labels).map(([value, label]) => ({value, label}));
+
 const filterGroups = [
-  {
-    key: "category",
-    label: "Categoria",
-    options: Object.entries(CATEGORY_LABELS).map(([value, label]) => ({value, label})),
-  },
-  {
-    key: "status",
-    label: "Stato",
-    options: Object.entries(STATUS_LABELS).map(([value, label]) => ({value, label})),
-  },
-  {
-    key: "light",
-    label: "Luce",
-    options: Object.entries(LEVEL_LABELS).map(([value, label]) => ({
-      value,
-      label: `Luce ${label.toLowerCase()}`,
-    })),
-  },
+  {key: "category", options: toOptions(CATEGORY_LABELS)},
+  {key: "status", options: toOptions(STATUS_LABELS)},
+  {key: "light", options: toOptions(LIGHT_FILTER_LABELS)},
   {
     key: "toxicity",
-    label: "Tossicità",
-    options: [
-      {value: "animals", label: TOXICITY_LABELS.animals},
-      {value: "people", label: TOXICITY_LABELS.people},
-      {value: "none", label: TOXICITY_LABELS.none},
-    ],
+    options: toOptions({
+      animals: TOXICITY_LABELS.animals,
+      people: TOXICITY_LABELS.people,
+      none: TOXICITY_LABELS.none,
+    }),
   },
-];
+].map((group) => ({
+  ...group,
+  label: FILTER_GROUP_LABELS[group.key as keyof typeof FILTER_GROUP_LABELS],
+}));
 
 const facetsOf = (plant: (typeof plants)[number]) => ({
   category: [plant.category],

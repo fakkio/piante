@@ -43,7 +43,7 @@ infos:
     note: "Le fonti indicano i metodi ma non il periodo. La margotta è il metodo per gli esemplari grandi e legnosi, la talea per quelli piccoli."
   toxicity:
     value: both
-    note: "Tenere lontano da animali domestici e bambini che mordono le piante. L'ASPCA classifica il Ficus benjamina come tossico per cani e gatti, ma non ho trovato la voce per il Ficus elastica: per prudenza trattarlo allo stesso modo."
+    note: "Il lattice irrita pelle e stomaco: tenere lontano da animali domestici e bambini che mordono le piante. L'ASPCA classifica il Ficus benjamina come tossico per cani e gatti, ma non ho trovato la voce per il Ficus elastica: per prudenza trattarlo allo stesso modo."
   pests:
     value: "Cocciniglia, cocciniglia cotonosa, marciume radicale"
     note: "La specie è poco soggetta a malattie; capita la cocciniglia (scale). Il marciume viene da terriccio che drena male o da annaffiature troppo frequenti. Poca luce, aria secca o correnti fredde fanno cadere le foglie. Lavare le foglie impolverate aiuta a notare i parassiti."

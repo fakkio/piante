@@ -77,3 +77,18 @@ export const ACTIVITY_LABELS = {
   repotting: "Rinvaso",
   fertilizing: "Concimazione",
 } as const;
+
+// Labels of the list filters: the groups, and the checkbox of each level of
+// light (the bare level labels read ambiguously out of context).
+export const FILTER_GROUP_LABELS = {
+  category: "Categoria",
+  status: "Stato",
+  light: "Luce",
+  toxicity: "Tossicità",
+} as const;
+
+export const LIGHT_FILTER_LABELS = {
+  low: "Luce bassa",
+  medium: "Luce media",
+  high: "Luce alta",
+} as const;
