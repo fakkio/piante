@@ -13,9 +13,14 @@ const level = z.enum(["low", "medium", "high"]);
 const toxicity = z.enum(["none", "animals", "people", "both"]);
 const celsius = z.number().min(-50).max(60);
 
-// Every info is a short value plus a note of one or two sentences.
+// Every info is a short value plus a note of one or two sentences, or is
+// explicitly not applicable to the plant (the note says why).
+const notApplicable = z.strictObject({applicable: z.literal(false), note: text});
 const info = <V extends z.ZodRawShape>(value: z.ZodType, extra?: V) =>
-  z.strictObject({value, note: text, ...extra});
+  z.union([z.strictObject({value, note: text, ...extra}), notApplicable]);
+
+export const isNotApplicable = (item: {note: string}): item is {applicable: false; note: string} =>
+  "applicable" in item;
 
 export const INFOS = {
   soil: {label: "Terriccio", theme: "soil", schema: info(text)},

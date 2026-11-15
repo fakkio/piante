@@ -18,7 +18,7 @@ const months = MONTH_LABELS.map((label, index) => ({
     ...activity,
     plants: plants.filter((plant) => {
       const info = plant.infos?.[activity.info];
-      return info !== undefined && (info.value as readonly number[]).includes(index + 1);
+      return info !== undefined && "value" in info && (info.value as readonly number[]).includes(index + 1);
     }),
   })).filter((activity) => activity.plants.length > 0),
 }));

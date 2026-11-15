@@ -2,7 +2,7 @@
 import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import {formatValue} from "../format";
-import {INFOS, INFO_KEYS, type InfoKey} from "../infos";
+import {INFOS, INFO_KEYS, isNotApplicable, type InfoKey} from "../infos";
 import {sitePath} from "../paths";
 
 const plants = (await getCollection("cards"))
@@ -51,8 +51,11 @@ const DEFAULT_COLUMNS: ReadonlySet<InfoKey> = new Set(["light", "minTemperature"
               <th scope="row"><a href={sitePath(`cards/${plant.id}/`)}>{plant.commonName}</a></th>
               {INFO_KEYS.map((key) => {
                 const item = plant.infos?.[key];
+                if (item && isNotApplicable(item)) {
+                  return <td data-column={key} class="not-applicable">Non applicabile</td>;
+                }
                 return item ? (
-                  <td data-column={key}>{formatValue(key, item.value)}</td>
+                  <td data-column={key}>{formatValue(key, (item as any).value)}</td>
                 ) : (
                   // The card has no researched infos yet.
                   <td data-column={key} class="missing" aria-label="Non ancora ricercato">—</td>
@@ -161,5 +164,10 @@ const DEFAULT_COLUMNS: ReadonlySet<InfoKey> = new Set(["light", "minTemperature"
 
   .missing {
     color: var(--text-muted);
+  }
+
+  .not-applicable {
+    color: var(--text-muted);
+    font-style: italic;
   }
 </style>

@@ -1,7 +1,7 @@
 ---
 import {getCollection, render} from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import {INFOS, INFO_KEYS} from "../../infos";
+import {INFOS, INFO_KEYS, isNotApplicable} from "../../infos";
 import {formatValue} from "../../format";
 import {sitePath} from "../../paths";
 import {
@@ -32,7 +32,8 @@ const themes = (Object.keys(THEME_LABELS) as Theme[]).map((theme) => ({
   entries: infos
     ? INFO_KEYS.filter((key) => INFOS[key].theme === theme).map((key) => {
         const item = infos[key] as any;
-        return {key, label: INFOS[key].label, value: formatValue(key, item.value), item};
+        const value = isNotApplicable(item) ? "Non applicabile" : formatValue(key, item.value);
+        return {key, label: INFOS[key].label, value, item};
       })
     : [],
 }));
@@ -64,8 +65,8 @@ const dateFormat = new Intl.DateTimeFormat("it-IT", {dateStyle: "long", timeZone
             <article class="info" data-info={key}>
               <h3>{label}</h3>
               <p class="info__value">{value}</p>
-              {key === "repotting" && <p class="info__extra">Frequenza: {item.frequency}</p>}
-              {key === "light" && (
+              {key === "repotting" && !isNotApplicable(item) && <p class="info__extra">Frequenza: {item.frequency}</p>}
+              {key === "light" && !isNotApplicable(item) && (
                 <p class="info__extra">
                   Regge una casa poco luminosa: {DIM_HOME_LABELS[item.dimHome as keyof typeof DIM_HOME_LABELS]}
                   {item.supplementalLight && ` · Luce artificiale: ${item.supplementalLight}`}

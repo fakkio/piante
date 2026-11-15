@@ -14,7 +14,7 @@ infos:
   idealTemperature: {value: {min: 18, max: 24}, note: "Nota ideale gamma."}
   minTemperature: {value: 10, note: "Nota minima gamma."}
   humidity: {value: high, note: "Nota umidità gamma."}
-  pruning: {value: "Primavera gamma", note: "Nota potatura gamma."}
+  pruning: {applicable: false, note: "Nota potatura gamma."}
   propagation: {value: "Talea gamma", note: "Nota propagazione gamma."}
   toxicity: {value: none, note: "Nota tossicità gamma."}
   pests: {value: "Cocciniglia gamma", note: "Nota parassiti gamma."}

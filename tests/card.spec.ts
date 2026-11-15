@@ -16,6 +16,13 @@ test("opening a plant from the list shows its card, and Back returns to the list
   await expect(page.getByRole("list", {name: "Piante"})).toBeVisible();
 });
 
+test("a not applicable info says so and keeps its note", async ({page}) => {
+  await openCard(page, "Cetriolo");
+  const pruning = page.locator('[data-info="pruning"]');
+  await expect(pruning).toContainText("Non applicabile");
+  await expect(pruning).toContainText("Nota potatura gamma.");
+});
+
 test("a card has a stable address of its own", async ({page}) => {
   await page.goto("cards/citrus-limon/");
   await expect(page.getByRole("heading", {level: 1})).toHaveText("Limone");
