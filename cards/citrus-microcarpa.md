@@ -55,13 +55,13 @@ infos:
     note: "Cornell segnala la cocciniglia come la più difficile da eliminare, da trattare con olio bianco anche preventivamente prima del rientro, e le foglie che cadono dopo il rientro per il cambio di luce e umidità. RHS aggiunge la cocciniglia fluted e i bruchi per le piante in serra."
   harvest:
     value: [11, 12, 1, 2]
-    note: "Identificazione probabile ma non certa (\"mandarino mini\"): in questa Scheda si assume il calamondino. Le fonti non danno i mesi di raccolta della specie, che a quanto risulta matura in autunno-inverno; i frutti sono aciduli e, secondo UF/IFAS Nassau, si conservano male: vanno usati entro una settimana."
+    note: "Le fonti non danno i mesi di raccolta della specie, che a quanto risulta matura in autunno-inverno; i frutti sono aciduli e, secondo UF/IFAS Nassau, si conservano male: vanno usati entro una settimana."
   overwintering:
     value: {protection: fleece, bringIn: [11], bringOut: [4], threshold: 0}
     note: "Cornell consiglia di ritirare gli agrumi prima della prima gelata e di rimetterli fuori dopo l'ultima, abituandoli piano al sole; in pianura i mesi sono adattati al clima locale. Con il tessuto non tessuto resiste alle gelate leggere: sotto 0 °C portarlo in casa."
   flowering:
     value: [4, 5]
-    note: "Fiori bianchi e profumati in primavera (Cornell); RHS non dà un periodo. Il mese esatto per il calamondino non è indicato: i mesi sono una stima per la pianura del Nord Italia. Identificazione probabile ma non certa."
+    note: "Fiori bianchi e profumati in primavera (Cornell); RHS non dà un periodo. Il mese esatto per il calamondino non è indicato: i mesi sono una stima per la pianura del Nord Italia."
 sources:
   - title: "UF/IFAS Extension Nassau County: Calamondin (Citrus mitis)"
     url: "https://blogs.ifas.ufl.edu/nassauco/?p=1728"
@@ -81,4 +81,4 @@ sources:
 researchedOn: 2026-11-15
 ---
 
-Esemplare di circa 1 m.
+Esemplare adulto.

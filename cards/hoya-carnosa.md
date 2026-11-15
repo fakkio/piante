@@ -73,4 +73,4 @@ sources:
 researchedOn: 2026-11-15
 ---
 
-Esemplare di circa 40 cm.
+Esemplare di taglia media.

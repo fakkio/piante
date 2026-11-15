@@ -33,8 +33,8 @@ infos:
     supplementalLight: "se tenuta in casa, una lampada da coltivazione a LED"
     note: "Sole pieno preferito, tollera la mezz'ombra (Illinois, USU); NC State parla di 2–6 ore di sole diretto. In una casa poco luminosa si stira e perde aroma: meglio all'aperto."
   idealTemperature:
-    applicable: false
-    note: "Le fonti consultate non indicano un intervallo ideale, solo che è molto rustica e vegeta in tutta la bella stagione."
+    value: {min: 12, max: 22}
+    note: "Solo GrowByCity (fonte di ripiego, senza fonte primaria dichiarata) dà un intervallo ottimale di 12–22 °C; le fonti istituzionali consultate dicono solo che la menta è molto rustica e vegeta in tutta la bella stagione."
   minTemperature:
     value: -29
     note: "USU: resiste fino a circa -20 °F (-29 °C); NC State la dà per le zone USDA 4–9 (fino a circa -34 °C). Le fonti non concordano sul limite: si cita il valore più prudente."
@@ -81,5 +81,8 @@ sources:
   - title: "UC IPM: Mint"
     url: "https://ipm.ucanr.edu/home-and-landscape/mint/"
     type: institutional
+  - title: "GrowByCity: How to Grow Mint (fonte di ripiego, solo per la temperatura ideale)"
+    url: "https://www.growbycity.com/plant/mint/"
+    type: fallback
 researchedOn: 2026-11-15
 ---

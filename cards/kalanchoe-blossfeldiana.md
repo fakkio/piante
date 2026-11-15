@@ -73,4 +73,4 @@ sources:
 researchedOn: 2026-11-15
 ---
 
-Esemplari di qualche anno, rifioriti una sola volta.
+Esemplari adulti, rifioriti una sola volta.

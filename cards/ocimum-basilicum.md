@@ -82,4 +82,4 @@ sources:
 researchedOn: 2026-11-15
 ---
 
-Esemplare di circa 30 cm.
+Esemplare in crescita.
