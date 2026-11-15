@@ -29,6 +29,13 @@ export const LEVEL_LABELS = {
   high: "Alta",
 } as const;
 
+export const TOXICITY_LABELS = {
+  none: "Non tossica",
+  animals: "Tossica per animali",
+  people: "Tossica per persone",
+  both: "Tossica per animali e persone",
+} as const;
+
 export const DIM_HOME_LABELS = {
   yes: "Sì",
   partly: "In parte",

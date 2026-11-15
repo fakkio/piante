@@ -2,7 +2,12 @@
 import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import {sitePath} from "../paths";
-import {CATEGORY_LABELS, STATUS_LABELS} from "../vocabulary";
+import {
+  CATEGORY_LABELS,
+  LEVEL_LABELS,
+  STATUS_LABELS,
+  TOXICITY_LABELS,
+} from "../vocabulary";
 
 const plants = (await getCollection("cards"))
   .map(({id, data}) => ({...data, id, commonName: data.commonNames[0]!}))
@@ -13,6 +18,53 @@ const plants = (await getCollection("cards"))
 if (plants.length === 0) {
   throw new Error("No cards found: check the cards folder.");
 }
+
+// Filters: a plant passes a group if it has one of the group's checked
+// values; it must pass every group with a checked value. Plants not yet
+// researched have no info values, so they never pass an info group.
+const toxicityFacets: Record<keyof typeof TOXICITY_LABELS, string[]> = {
+  none: ["none"],
+  animals: ["animals"],
+  people: ["people"],
+  both: ["animals", "people"],
+};
+
+const filterGroups = [
+  {
+    key: "category",
+    label: "Categoria",
+    options: Object.entries(CATEGORY_LABELS).map(([value, label]) => ({value, label})),
+  },
+  {
+    key: "status",
+    label: "Stato",
+    options: Object.entries(STATUS_LABELS).map(([value, label]) => ({value, label})),
+  },
+  {
+    key: "light",
+    label: "Luce",
+    options: Object.entries(LEVEL_LABELS).map(([value, label]) => ({
+      value,
+      label: `Luce ${label.toLowerCase()}`,
+    })),
+  },
+  {
+    key: "toxicity",
+    label: "Tossicità",
+    options: [
+      {value: "animals", label: TOXICITY_LABELS.animals},
+      {value: "people", label: TOXICITY_LABELS.people},
+      {value: "none", label: TOXICITY_LABELS.none},
+    ],
+  },
+];
+
+const facetsOf = (plant: (typeof plants)[number]) => ({
+  category: [plant.category],
+  status: [plant.status],
+  light: plant.infos ? [plant.infos.light.value as string] : [],
+  toxicity: plant.infos ? toxicityFacets[plant.infos.toxicity.value as keyof typeof TOXICITY_LABELS] : [],
+});
 ---
 
 <Layout>
@@ -31,11 +83,45 @@ if (plants.length === 0) {
     />
   </form>
 
+  <details class="filters" id="filters">
+    <summary class="filters__summary">
+      Filtri <span class="filters__count" id="filters-count" hidden></span>
+    </summary>
+    <form class="filters__body" onsubmit="return false">
+      {
+        filterGroups.map((group) => (
+          <fieldset class="filter-group">
+            <legend>{group.label}</legend>
+            <div class="filter-group__options">
+              {group.options.map((option) => (
+                <label class="filter-option">
+                  <input
+                    type="checkbox"
+                    data-filter={group.key}
+                    value={option.value}
+                    data-label={option.label}
+                  />
+                  {option.label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))
+      }
+    </form>
+  </details>
+
+  <div class="active-filters" id="active-filters" hidden>
+    <ul role="list" aria-label="Filtri attivi" id="active-filters-list"></ul>
+    <button type="button" class="clear-filters" id="clear-filters">Azzera filtri</button>
+  </div>
+
   <ul class="plant-list" role="list" aria-label="Piante">
     {
       plants.map((plant) => (
         <li
           class:list={["plant", `plant--${plant.status}`]}
+          data-facets={JSON.stringify(facetsOf(plant))}
           data-search-names={JSON.stringify([
             plant.botanicalName,
             ...plant.commonNames,
@@ -60,7 +146,7 @@ if (plants.length === 0) {
   </ul>
 
   <p class="no-results" id="no-results" role="status" hidden>
-    Nessuna pianta trovata: non è nello schedario.
+    Nessuna pianta trovata. <span id="no-results-hint"></span>
   </p>
 </Layout>
 
@@ -84,21 +170,82 @@ if (plants.length === 0) {
     ),
   }));
 
-  function applySearch() {
+  const noResultsHint = document.querySelector<HTMLElement>("#no-results-hint")!;
+  const checkboxes = [
+    ...document.querySelectorAll<HTMLInputElement>("input[data-filter]"),
+  ];
+  const activeFilters = document.querySelector<HTMLElement>("#active-filters")!;
+  const activeList = document.querySelector<HTMLElement>("#active-filters-list")!;
+  const filtersCount = document.querySelector<HTMLElement>("#filters-count")!;
+  const facetsByItem = new Map(
+    items.map(({element}) => [
+      element,
+      JSON.parse(element.dataset.facets!) as Record<string, string[]>,
+    ]),
+  );
+
+  function passesFilters(element: HTMLElement, checked: HTMLInputElement[]) {
+    const facets = facetsByItem.get(element)!;
+    const groups = new Set(checked.map((box) => box.dataset.filter!));
+    return [...groups].every((group) =>
+      checked.some(
+        (box) =>
+          box.dataset.filter === group &&
+          (facets[group] ?? []).includes(box.value),
+      ),
+    );
+  }
+
+  function renderActiveFilters(checked: HTMLInputElement[]) {
+    activeList.replaceChildren(
+      ...checked.map((box) => {
+        const item = document.createElement("li");
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "active-filter";
+        button.textContent = `${box.dataset.label} ×`;
+        button.setAttribute("aria-label", `${box.dataset.label}: togli`);
+        button.addEventListener("click", () => {
+          box.checked = false;
+          apply();
+        });
+        item.append(button);
+        return item;
+      }),
+    );
+    activeFilters.hidden = checked.length === 0;
+    filtersCount.hidden = checked.length === 0;
+    filtersCount.textContent = String(checked.length);
+  }
+
+  function apply() {
     const query = normalize(input.value);
+    const checked = checkboxes.filter((box) => box.checked);
     let visible = 0;
     for (const {element, names} of items) {
-      const matches = names.some((name) => name.includes(query));
+      const matches =
+        names.some((name) => name.includes(query)) &&
+        passesFilters(element, checked);
       element.hidden = !matches;
       if (matches) visible++;
     }
     noResults.hidden = visible > 0;
+    noResultsHint.textContent =
+      checked.length > 0
+        ? "Prova a togliere qualche filtro."
+        : "Non è nello schedario.";
+    renderActiveFilters(checked);
   }
 
-  input.addEventListener("input", applySearch);
-  // Back navigation restores the field value: apply it again to the list.
-  window.addEventListener("pageshow", applySearch);
-  applySearch();
+  input.addEventListener("input", apply);
+  for (const box of checkboxes) box.addEventListener("change", apply);
+  document.querySelector("#clear-filters")!.addEventListener("click", () => {
+    for (const box of checkboxes) box.checked = false;
+    apply();
+  });
+  // Back navigation restores the field values: apply them again to the list.
+  window.addEventListener("pageshow", apply);
+  apply();
 </script>
 
 <style>
@@ -131,6 +278,106 @@ if (plants.length === 0) {
     /* 16px or more: iOS does not zoom the page on focus. */
     font: inherit;
     font-size: 1rem;
+  }
+
+  .filters {
+    margin-block-end: var(--space);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .filters__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0 var(--space);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .filters__count {
+    min-width: 1.5rem;
+    padding: 0 0.5rem;
+    border-radius: 999px;
+    background: var(--growing-background);
+    color: var(--growing-text);
+    font-size: 0.8125rem;
+    text-align: center;
+  }
+
+  .filters__body {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0 var(--space) var(--space);
+  }
+
+  .filter-group {
+    min-width: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  .filter-group legend {
+    margin-block-end: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .filter-group__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9375rem;
+  }
+
+  .filter-option input {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-end: var(--space);
+  }
+
+  .active-filters ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .active-filter,
+  .clear-filters {
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.875rem;
+  }
+
+  .clear-filters {
+    border-color: transparent;
+    background: transparent;
+    color: var(--text-muted);
+    text-decoration: underline;
   }
 
   .no-results {

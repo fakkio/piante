@@ -10,6 +10,7 @@ const months = z
   .min(1)
   .refine((list) => new Set(list).size === list.length, "Duplicate month");
 const level = z.enum(["low", "medium", "high"]);
+const toxicity = z.enum(["none", "animals", "people", "both"]);
 const celsius = z.number().min(-50).max(60);
 
 // Every info is a short value plus a note of one or two sentences.
@@ -44,7 +45,7 @@ export const INFOS = {
   humidity: {label: "Umidità", theme: "climate", schema: info(level)},
   pruning: {label: "Potatura", theme: "care", schema: info(text)},
   propagation: {label: "Propagazione", theme: "care", schema: info(text)},
-  toxicity: {label: "Tossicità", theme: "care", schema: info(text)},
+  toxicity: {label: "Tossicità", theme: "care", schema: info(toxicity)},
   pests: {label: "Problemi e parassiti", theme: "problems", schema: info(text)},
 } as const satisfies Record<
   string,

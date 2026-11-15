@@ -16,7 +16,7 @@ infos:
   humidity: {value: high, note: "Nota umidità alfa."}
   pruning: {value: "Primavera alfa", note: "Nota potatura alfa."}
   propagation: {value: "Talea alfa", note: "Nota propagazione alfa."}
-  toxicity: {value: "Tossica alfa", note: "Nota tossicità alfa."}
+  toxicity: {value: both, note: "Nota tossicità alfa."}
   pests: {value: "Cocciniglia alfa", note: "Nota parassiti alfa."}
 sources:
   - {title: "Fonte istituzionale alfa", url: "https://example.edu/alfa", type: institutional}

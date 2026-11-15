@@ -10,13 +10,13 @@ infos:
   wateringSummer: {value: "Abbondante gamma", note: "Nota estate gamma."}
   wateringWinter: {value: "Scarsa gamma", note: "Nota inverno gamma."}
   fertilizing: {value: [6, 7], note: "Nota concime gamma."}
-  light: {value: medium, dimHome: partly, supplementalLight: "Lampada gamma", note: "Nota luce gamma."}
+  light: {value: high, dimHome: partly, supplementalLight: "Lampada gamma", note: "Nota luce gamma."}
   idealTemperature: {value: {min: 18, max: 24}, note: "Nota ideale gamma."}
   minTemperature: {value: 10, note: "Nota minima gamma."}
   humidity: {value: high, note: "Nota umidità gamma."}
   pruning: {value: "Primavera gamma", note: "Nota potatura gamma."}
   propagation: {value: "Talea gamma", note: "Nota propagazione gamma."}
-  toxicity: {value: "Tossica gamma", note: "Nota tossicità gamma."}
+  toxicity: {value: none, note: "Nota tossicità gamma."}
   pests: {value: "Cocciniglia gamma", note: "Nota parassiti gamma."}
 sources:
   - {title: "Fonte istituzionale gamma", url: "https://example.edu/gamma", type: institutional}

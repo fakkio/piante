@@ -42,7 +42,7 @@ infos:
     value: "Talea di fusto o di apice, o margotta"
     note: "Le fonti indicano i metodi ma non il periodo. La margotta è il metodo per gli esemplari grandi e legnosi, la talea per quelli piccoli."
   toxicity:
-    value: "Il lattice irrita pelle e stomaco"
+    value: both
     note: "Tenere lontano da animali domestici e bambini che mordono le piante. L'ASPCA classifica il Ficus benjamina come tossico per cani e gatti, ma non ho trovato la voce per il Ficus elastica: per prudenza trattarlo allo stesso modo."
   pests:
     value: "Cocciniglia, cocciniglia cotonosa, marciume radicale"
