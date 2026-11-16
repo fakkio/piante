@@ -65,7 +65,7 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
 <Layout>
   <h1>Le mie piante</h1>
 
-  <form class="search" role="search" onsubmit="return false">
+  <form class="search" role="search">
     <label class="search__label" for="plant-search">Cerca</label>
     <input
       id="plant-search"
@@ -82,7 +82,7 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
     <summary class="filters__summary">
       Filtri <span class="filters__count" id="filters-count" hidden></span>
     </summary>
-    <form class="filters__body" onsubmit="return false">
+    <form class="filters__body">
       {
         filterGroups.map((group) => (
           <fieldset class="filter-group">
@@ -239,6 +239,10 @@ const facetsOf = (plant: (typeof plants)[number]) => ({
     renderActiveFilters(checked);
   }
 
+  // Filtering is live: Enter must not submit (and reload) either form.
+  for (const form of document.querySelectorAll("form")) {
+    form.addEventListener("submit", (event) => event.preventDefault());
+  }
   input.addEventListener("input", apply);
   for (const box of checkboxes) box.addEventListener("change", apply);
   document.querySelector("#clear-filters")!.addEventListener("click", () => {
